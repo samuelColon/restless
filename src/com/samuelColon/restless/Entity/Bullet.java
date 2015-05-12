@@ -44,13 +44,13 @@ public class Bullet implements Entity {
     private final int FACING_RIGHT = 3;
     private final int FACING_DOWN = 4;
 
-    private ArrayList< Basic_Enemy > enemies;
+    private ArrayList< BasicEnemy > enemies;
 
     /**
      * class receives the direction the player is currently facing
      * dimensions of bullet, origin and bullet range should be affected accordingly
      */
-    public Bullet ( Player player, ArrayList< Basic_Enemy > enemies, int x, int y, int directionFacing ) {
+    public Bullet ( Player player, ArrayList< BasicEnemy > enemies, int x, int y, int directionFacing ) {
         this.player = player;
         this.x = x;
         this.y = y;
@@ -143,8 +143,8 @@ public class Bullet implements Entity {
     }
 
     public void checkCollision () {
-        ArrayList< Basic_Enemy > temp = new ArrayList<>( enemies );
-        for ( Basic_Enemy e : temp ) {
+        ArrayList< BasicEnemy > temp = new ArrayList<>( enemies );
+        for ( BasicEnemy e : temp ) {
             int x = e.getX();
             int y = e.getY();
             int d = e.dimensions;

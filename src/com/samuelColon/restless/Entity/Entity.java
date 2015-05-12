@@ -1,6 +1,6 @@
 package com.samuelColon.restless.Entity;
 
-import java.awt.*;
+import java.awt.Graphics;
 
 public interface Entity {
     public void draw ( Graphics g );

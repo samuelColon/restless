@@ -1,7 +1,8 @@
 package com.samuelColon.restless;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
 
 /**
  * this jpanel will show a visual of the current inventory

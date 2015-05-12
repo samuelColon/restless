@@ -1,18 +1,18 @@
 package com.samuelColon.restless;
 
-import com.samuelColon.restless.Entity.Basic_Enemy;
+import com.samuelColon.restless.Entity.BasicEnemy;
 import com.samuelColon.restless.Entity.Item;
 import com.samuelColon.restless.Entity.Player;
 import com.samuelColon.restless.Util.FrameRate;
 import com.samuelColon.restless.Util.SoundManager;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -49,13 +49,13 @@ public class Game extends JPanel implements Runnable {
      */
     public Player player;
 
-    public ArrayList< Basic_Enemy > enemies = new ArrayList<>();
+    public ArrayList< BasicEnemy > enemies = new ArrayList<>();
     private int amountOfEnemies = 0;
 
     /**
      * sound files
      */
-    private final String FILE_PATH = "res/";
+    private final String FILE_PATH = "res/sounds";
     private final String BACKGROUND_MUSIC_FILE = "mainBackGroundMusic.wav";
     private final String SHOOTING_SOUND_FILE = "gunShot.wav";
 
@@ -104,7 +104,7 @@ public class Game extends JPanel implements Runnable {
 
         /** init player, enemies and items on this map */
         player = new Player( this, x, y, GAME_WIDTH, GAME_HEIGHT );
-        enemies.add( new Basic_Enemy( this, amountOfEnemies++ ) );
+        enemies.add( new BasicEnemy( this, amountOfEnemies++ ) );
 
         gameThread = new Thread( this );
         gameThread.start();
@@ -284,9 +284,9 @@ public class Game extends JPanel implements Runnable {
         /** draw players, bullets and enemies */
         player.draw(g);
 
-        ArrayList<Basic_Enemy> temp1 = new ArrayList<>(enemies);
+        ArrayList<BasicEnemy > temp1 = new ArrayList<>(enemies);
 
-        for( Basic_Enemy badGuys: temp1 ) {
+        for( BasicEnemy badGuys: temp1 ) {
             badGuys.draw(g);
         }
 
@@ -347,9 +347,9 @@ public class Game extends JPanel implements Runnable {
         /** draw players, bullets and enemies */
         player.draw( g );
 
-        ArrayList< Basic_Enemy > temp1 = new ArrayList<>( enemies );
+        ArrayList< BasicEnemy > temp1 = new ArrayList<>( enemies );
 
-        for ( Basic_Enemy badGuys : temp1 ) {
+        for ( BasicEnemy badGuys : temp1 ) {
             badGuys.draw( g );
         }
 
@@ -395,7 +395,7 @@ public class Game extends JPanel implements Runnable {
         items.add( item );
     }
 
-    public ArrayList< Basic_Enemy > getEnemies () {
+    public ArrayList< BasicEnemy > getEnemies () {
         return enemies;
     }
 }

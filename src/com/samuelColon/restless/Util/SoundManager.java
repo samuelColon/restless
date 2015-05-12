@@ -3,6 +3,7 @@ package com.samuelColon.restless.Util;
 import javax.sound.sampled.*;
 import java.io.*;
 
+/** TODO: allow the user to change the volume of background music and sound effects */
 public class SoundManager {
     private final File file;
     private boolean loopStatus;
@@ -27,7 +28,6 @@ public class SoundManager {
                 public void update ( LineEvent event ) {
                     if ( event.getType() == LineEvent.Type.STOP ) {
                         clip.close();
-//                        System.out.println("Closed from line listener");
                     }
                 }
             } );
@@ -38,8 +38,9 @@ public class SoundManager {
         }
     }
 
-    /** TODO: update pause sound so a resume sound method can be implemented
-     * (one that doesn't start sound from begining) */
+    /** TODO: once inventory panel is up. Replace pause will adjust volume. Opening the window will reduce the volume and no longer
+     * stop the music.
+     * */
     public void pauseSound () {
         clip.stop();
     }

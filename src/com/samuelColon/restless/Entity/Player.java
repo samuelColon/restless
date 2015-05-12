@@ -1,7 +1,8 @@
 package com.samuelColon.restless.Entity;
 
 import com.samuelColon.restless.Game;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Player implements LivingEntity{
