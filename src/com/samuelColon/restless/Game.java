@@ -347,14 +347,13 @@ public class Game extends JPanel implements Runnable {
         /** draw players, bullets and enemies */
         player.draw( g );
 
+        /*** copy arrays to escape concurrent modification exception */
         ArrayList< BasicEnemy > temp1 = new ArrayList<>( enemies );
-
         for ( BasicEnemy badGuys : temp1 ) {
             badGuys.draw( g );
         }
 
         ArrayList< Item > temp2 = new ArrayList<>( items );
-
         for ( Item invn : temp2 ) {
             invn.draw( g );
         }

@@ -1,12 +1,10 @@
 package com.samuelColon.restless;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
-/**this is a test*/
+
 /**
  * Main class contains a frame that will initially display the main menu panel
  * upon user action the frame will be switched to the game panel after utilizing the appropriate response
@@ -14,10 +12,6 @@ import javax.swing.*;
  * @param new game, @param load game
  */
 public class Main extends JFrame {
-    /**
-     * the main menu panel
-     */
-    private JPanel jpSplash;
 
     /**
      * Game screen dimensions
@@ -53,49 +47,25 @@ public class Main extends JFrame {
         if ( DEBUG_MODE ) {
             getContentPane().add( new Game( GAME_WIDTH, GAME_HEIGHT, canvas ) );
         } else {
-            initSplash();
-            getContentPane().add( jpSplash );
+            MainMenu menu = new MainMenu(this);
+            getContentPane().add(menu.getMenu());
         }
-//                pack();
-    }
-
-    private void initSplash () {
-        jpSplash = new JPanel();
-        jpSplash.setSize( new Dimension( GAME_WIDTH, GAME_HEIGHT ) );
-        jpSplash.setBackground( Color.cyan );
-        jpSplash.setLayout( new GridLayout( 2, 1 ) );
-
-        JLabel gameName = new JLabel( "Restless" );
-        JButton newGame = new JButton( "New Game" );
-        JButton loadGame = new JButton( "Load Game" );
-
-        newGame.addActionListener( new ActionListener() {
-            @Override
-            public void actionPerformed ( ActionEvent e ) {
-                swapFrames();
-            }
-        } );
-
-        jpSplash.add( gameName );
-        jpSplash.add( newGame );
-        jpSplash.add( loadGame );
-        jpSplash.setVisible( true );
+//        pack();
     }
 
     /**
      * clean up resources
      */
     private static void onWindowClosing () {
-
         System.exit( 0 );
     }
 
     /**
-     * switches jpanel's from splash to game panel
+     * change out main menu for Game panel
      */
-    void swapFrames () {
+    public void swapFrames () {
         getContentPane().removeAll();
-                getContentPane().add( new Game( GAME_WIDTH, GAME_HEIGHT, canvas ) );
+        getContentPane().add( new Game( GAME_WIDTH, GAME_HEIGHT, canvas ) );
     }
 
     public static void main ( String[] args ) {

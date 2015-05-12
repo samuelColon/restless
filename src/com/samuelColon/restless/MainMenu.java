@@ -28,4 +28,8 @@ public class MainMenu extends JPanel{
         add( loadGame );
         setVisible( true );
     }
+
+    public JPanel getMenu() {
+        return this;
+    }
 }
