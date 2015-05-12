@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class MainMenu extends JPanel{
     public MainMenu ( Main main ) {
 
-        setSize( new Dimension( 500, 500 ) );
+        setPreferredSize( new Dimension( 500, 500 ) );
         setBackground( Color.cyan );
         setLayout( new GridLayout( 2, 1 ) );
 

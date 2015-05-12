@@ -5,52 +5,48 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
 
-/**
- * Main class contains a frame that will initially display the main menu panel
- * upon user action the frame will be switched to the game panel after utilizing the appropriate response
- *
- * @param new game, @param load game
- */
 public class Main extends JFrame {
 
     /**
-     * Game screen dimensions
+     * Current screen dimensions
+
      */
-    private final int GAME_WIDTH = 600;
+    private final int GAME_WIDTH  = 600;
     private final int GAME_HEIGHT = 500;
 
+    /** TODO: create window util that will set values based on screen dimensions */
+//    private final int MENU_WIDTH;
+//    private final int MENU_HEIGHT;
+//    private final int GAME_WIDTH;
+//    private final int GAME_HEIGHT;
+
+    /** so I don't have to click new game every single damn time */
     private final boolean DEBUG_MODE = false;
 
     public Main () {
+        /** init window util
+         *  this GAME_WIDTH = screen.getWidth();
+         *
+         * */
     }
 
-    Canvas canvas;
     private void createAndShowGui () {
-        setSize( new Dimension( GAME_WIDTH, GAME_HEIGHT ) );
-        setTitle( "Shooter" );
+        setPreferredSize( new Dimension( GAME_WIDTH, GAME_HEIGHT ) );
+        setTitle( "Restless" );
         setLayout( new GridLayout( 1, 1 ) );
         setLocation( 0 - GAME_WIDTH / 2, 0 - GAME_HEIGHT / 2 );
         setIgnoreRepaint( true );
-        setVisible( true );
-        setResizable( false );
-
-        canvas = new Canvas();
-        //        canvas.setSize( GAME_WIDTH, GAME_HEIGHT);
-        //        canvas.setBackground( Color.GREEN);
-        //        canvas.setIgnoreRepaint(true);
-        //        canvas.createBufferStrategy(2);
-        //        canvas.setVisible( true );
-        //        canvas.requestFocus();
-        //        getContentPane().add(canvas);
-//        new Game(GAME_WIDTH, GAME_HEIGHT, canvas);
 
         if ( DEBUG_MODE ) {
-            getContentPane().add( new Game( GAME_WIDTH, GAME_HEIGHT, canvas ) );
+//            getContentPane().add( new Game( GAME_WIDTH, GAME_HEIGHT) );
+            new Game(GAME_WIDTH, GAME_HEIGHT);
         } else {
-            MainMenu menu = new MainMenu(this);
+            MainMenu menu = new MainMenu(this); // send menu dimensions once window util is complete
             getContentPane().add(menu.getMenu());
         }
-//        pack();
+        pack();
+        setVisible( true );
+//        setResizable( false );
     }
 
     /**
@@ -64,8 +60,11 @@ public class Main extends JFrame {
      * change out main menu for Game panel
      */
     public void swapFrames () {
-        getContentPane().removeAll();
-        getContentPane().add( new Game( GAME_WIDTH, GAME_HEIGHT, canvas ) );
+        /**test */
+//        getContentPane().removeAll();
+//        getContentPane().add( new Game( GAME_WIDTH, GAME_HEIGHT ) );
+        new Game(GAME_WIDTH, GAME_HEIGHT);
+        this.setVisible( false );
     }
 
     public static void main ( String[] args ) {
