@@ -5,22 +5,14 @@ import java.io.*;
 
 /** TODO: allow the user to change the volume of background music and sound effects */
 public class SoundManager {
-    private final File file;
-    private boolean loopStatus;
-
-    public SoundManager ( File file, Boolean loopStatus ) {
-        this.file = file;
-        this.loopStatus = loopStatus;
-    }
-
     private Clip clip;
 
-    public void play () {
+    public SoundManager ( File file, Boolean loopAudio ) {
         try {
             clip = (Clip) AudioSystem.getLine( new Line.Info( Clip.class ) );
             clip.open( AudioSystem.getAudioInputStream( file ) );
 
-            if ( loopStatus ) {
+            if( loopAudio ) {
                 clip.loop( Clip.LOOP_CONTINUOUSLY );
             }
             clip.addLineListener( new LineListener() {
@@ -30,15 +22,17 @@ public class SoundManager {
                         clip.close();
                     }
                 }
-            } );
-
-            clip.start();
+            });
         } catch ( Exception exc ) {
             exc.printStackTrace( System.out );
         }
     }
 
-    /** TODO: once inventory panel is up. Replace pause will adjust volume. Opening the window will reduce the volume and no longer
+    public void play() {
+        clip.start();
+    }
+
+    /** TODO: once inventory panel is up. Opening the window will reduce the volume and no longer
      * stop the music.
      * */
     public void pauseSound () {

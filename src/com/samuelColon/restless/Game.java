@@ -20,8 +20,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game extends JFrame implements Runnable {
-
-    /** coordinates */
+    /** player coordinates */
     int x = 245;
     int y = 400;
 
@@ -36,6 +35,8 @@ public class Game extends JFrame implements Runnable {
     private final int GAME_WIDTH;
     private final int GAME_HEIGHT;
 
+    private KeyboardHandler keyHandler;
+
     /**
      * TODO: replace with background sprite(s)
      */
@@ -48,7 +49,7 @@ public class Game extends JFrame implements Runnable {
      */
     private Player player;
 
-    public ArrayList< BasicEnemy > enemies = new ArrayList<>();
+    public ArrayList<BasicEnemy> enemies = new ArrayList<>();
     private int amountOfEnemies = 0;
 
     /**
@@ -59,66 +60,69 @@ public class Game extends JFrame implements Runnable {
     private final String SHOOTING_SOUND_FILE = "gunShot.wav";
 
     /**
-     * will replace jpanel
+     * The drawing component
      */
     private GameCanvas gameCanvas;
     private BufferStrategy bs;
 
     private Thread gameThread;
 
-    public Game ( int gameWidth, int gameHeight) {
-        this.addWindowListener( new WindowAdapter() {
-            @Override
-            public void windowClosing ( WindowEvent e ) {
-                onWindowClosing();
-            }
-        });
+    public Game(int gameWidth, int gameHeight) {
 
         GAME_WIDTH  = gameWidth;
         GAME_HEIGHT = gameHeight;
 
-        /** configure Game jpanel wrapper */
-        setPreferredSize( new Dimension( GAME_WIDTH, GAME_HEIGHT ) );
-        setLayout( new GridLayout( 1,1 ) );
-        setVisible( true );
-//        setBackground( backGroundColor );
+        /** configure JFrame  */
+        setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
+        setLayout(new GridLayout(1, 1));
+        setVisible(true);
+        setFocusable(true);
+        setResizable(false);
+
+        /** Handle closing of the Game window */
+        addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowClosing (WindowEvent e) {
+                onWindowClosing();
+            }
+        });
 
         /** init canvas */
         gameCanvas = new GameCanvas(GAME_WIDTH, GAME_HEIGHT);
         add(gameCanvas.getCanvas());
         bs = gameCanvas.getBS(2);
-
         pack();
-        initSounds();
 
         /** init key bindings */
 //        createInputMap();
-        KeyboardHandler handler = new KeyboardHandler();
-        addKeyListener(handler);
+        keyHandler = new KeyboardHandler();
+        addKeyListener(keyHandler);
 
         /** Hide that hideous mouse when we're playing! */
-        setCursor( getToolkit().createCustomCursor( new BufferedImage( 3, 3, BufferedImage.TYPE_INT_ARGB ),
-                new Point( 0, 0 ), "null" ) );
+        setCursor( getToolkit().createCustomCursor( new BufferedImage( 3, 3, BufferedImage.TYPE_INT_ARGB ), new Point( 0, 0 ), "null" ) );
 
-        /** load xml utility, grab user info, initialize */
+        /** Note: this will replaced when Xml utility is complete */
+        /** init player */
+        player = new Player(x, y);
 
-        /** init player, enemies and items on this map */
-        player = new Player( this, x, y, GAME_WIDTH, GAME_HEIGHT );
+        /** init enemies */
         enemies.add( new BasicEnemy( this, amountOfEnemies++ ) );
 
+        initSounds();
+
+        /** Run the game */
         gameThread = new Thread( this );
         gameThread.start();
     }
 
     private SoundManager SmBackground;
-    public SoundManager SmGunshot;
+    public SoundManager  SmGunshot;
 
-    private void initSounds () {
+    private void initSounds() {
         /** init background music */
         SmBackground = new SoundManager( new File( FILE_PATH, BACKGROUND_MUSIC_FILE ), true );
-
         /** init shooting sound */
-        SmGunshot = new SoundManager( new File( FILE_PATH, SHOOTING_SOUND_FILE ), false );
+        SmGunshot    = new SoundManager( new File( FILE_PATH, SHOOTING_SOUND_FILE ), false );
     }
 
     /** TODO: Use KeyboardHandler class when game is better structured */
@@ -186,40 +190,12 @@ public class Game extends JFrame implements Runnable {
 //                player.shoot();
 //            }
 //        } );
-//
-//        am.put( "inventory", new AbstractAction() {
-//            @Override
-//            public void actionPerformed ( ActionEvent e ) {
-//
-//                /** when inventory jpanel is complete uncomment this
-//                 * for now, just print out current items and item types
-//                //                if( !gamePaused) {
-//                //                    SmBackground.pauseSound();
-//                //                    openInventoryScreen();
-//                //                } else {
-//                //                    /** the line listener automatically closes when the music is paused
-//                //                     *  recreate the clip object
-//                //                    SmBackground.play();
-//                //                    closeInventoryScreen();
-//                //                }
-//                //                gamePaused = !gamePaused;
-//
-//                player.printInventory();
-//                System.out.println( "enter action" );
-//                Scanner s = new Scanner( System.in );
-//                int a = s.nextInt();
-//                player.doAction( a );
-//                player.printInventory();
-//                s.close();
-//            }
-//        } );
-//    } */
-
+*/
     private volatile boolean gameRunning;
     private volatile boolean gamePaused;
 
     @Override
-    public void run () {
+    public void run() {
         gameRunning = true;
         gamePaused  = false;
         frameRate   = new FrameRate();
@@ -230,48 +206,67 @@ public class Game extends JFrame implements Runnable {
         double nsPerFrame;
 
         /** begin background music */
-        SmBackground.play();
+//        SmBackground.play();
 
-        while ( gameRunning ) {
-            if ( ! gamePaused ) {
+        while( gameRunning ) {
+            if( !gamePaused ) {
                 /** record time */
                 curTime    = System.nanoTime();
                 nsPerFrame = curTime - lastTime;
                 gameLoop( nsPerFrame / 1.0E6 );
-                lastTime = curTime;
+                lastTime   = curTime;
             }
         }
     }
 
-    private void gameLoop ( double delta ) {
-        /** poll input */
-        update( delta );
-//        repaint();
+    private void gameLoop( double delta ) {
+        checkForUserInput();
+        update(delta);
         renderFrame();
-        sleep( delta );
+        sleep(delta);
     }
 
-    /** TODO: use this method when canvas error is resolved */
-    private void renderFrame () {
+    /** cmon you can do better than that Sam. */
+    private void checkForUserInput() {
+        keyHandler.poll();
+
+        if(keyHandler.keyDownOnce( KeyEvent.VK_SPACE)) {
+            System.out.println("space");
+        }
+        if(keyHandler.keyDown(KeyEvent.VK_UP)) {
+            System.out.println("up");
+        }
+        if(keyHandler.keyDown(KeyEvent.VK_DOWN)) {
+            System.out.println("down");
+        }
+        if(keyHandler.keyDown(KeyEvent.VK_LEFT)) {
+            System.out.println("left");
+        }
+        if(keyHandler.keyDown(KeyEvent.VK_RIGHT)) {
+            System.out.println("Right");
+        }
+    }
+
+    private void renderFrame() {
         do {
             do {
                 Graphics g = null;
 
                 try {
                     g = bs.getDrawGraphics();
-                    g.clearRect( 0, 0, getWidth(), getHeight() );
-                    render( g );
+                    g.clearRect(0, 0, getWidth(), getHeight());
+                    render(g);
                 } finally {
-                    if ( g != null ) {
+                    if (g != null) {
                         g.dispose();
                     }
                 }
-            } while ( bs.contentsRestored() );
+            } while(bs.contentsRestored());
             bs.show();
-        } while ( bs.contentsLost() );
+        } while(bs.contentsLost());
     }
 
-    private void render ( Graphics g ) {
+    private void render(Graphics g) {
         /** background */
         g.setColor(backGroundColor);
         g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT - 1);
@@ -284,14 +279,12 @@ public class Game extends JFrame implements Runnable {
         /** draw players, bullets and enemies */
         player.draw(g);
 
-        ArrayList<BasicEnemy > temp1 = new ArrayList<>(enemies);
-
+        ArrayList<BasicEnemy> temp1 = new ArrayList<>(enemies);
         for( BasicEnemy badGuys: temp1 ) {
             badGuys.draw(g);
         }
 
-        ArrayList<Item > temp2 = new ArrayList<>(items);
-
+        ArrayList<Item> temp2 = new ArrayList<>(items);
         for( Item invn: temp2) {
             invn.draw(g);
         }
@@ -305,71 +298,45 @@ public class Game extends JFrame implements Runnable {
     /**
      * if rendering is ahead of schedule sleep thread, else continue
      */
-    private void sleep ( double delta ) {
-        if ( delta < targetFpms ) {
+    private void sleep(double delta) {
+        if (delta < targetFpms) {
             try {
-                Thread.sleep( (long) ( targetFpms - delta ) );
-            } catch ( InterruptedException e ) {
+                Thread.sleep( (long) (targetFpms - delta) );
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void gameOver () {
+    public void gameOver() {
         gameRunning = false;
     }
 
-    public void enemyKilled ( int element, int exp ) {
-        enemies.remove( element );
-        player.gainExp( exp );
-        System.out.println( "Gained " + exp + " experience" );
+    public void enemyKilled(int element, int exp) {
+        enemies.remove(element);
+        player.gainExp(exp);
+        System.out.println("Gained " + exp + " experience");
         amountOfEnemies--;
     }
 
     /**
      * TODO: write sprite manager class and give these guys some damn textures....damnit
+       TODO: When world size is created use delta for movement
      */
-    private ArrayList< Item > items = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<>();
 
-//    protected void paintComponent ( Graphics g ) {
-//        super.paintComponent( g );
-//        g.clearRect( 0, 0, GAME_WIDTH, GAME_HEIGHT - 1 );
-//
-//        /** background */
-//        g.setColor( backGroundColor );
-//        g.fillRect( 0, 0, GAME_WIDTH, GAME_HEIGHT - 1 );
-//
-//        /** calculate and display frame rate */
-//        frameRate.calculate();
-//        g.setColor( Color.BLACK );
-//        g.drawString( frameRate.getFrameRate(), 540, 30 );
-//
-//        /** draw players, bullets and enemies */
-//        player.draw( g );
-//
-//        /*** copy arrays to escape concurrent modification exception */
-//        ArrayList< BasicEnemy > temp1 = new ArrayList<>( enemies );
-//        for ( BasicEnemy badGuys : temp1 ) {
-//            badGuys.draw( g );
-//        }
-//
-//        ArrayList< Item > temp2 = new ArrayList<>( items );
-//        for ( Item invn : temp2 ) {
-//            invn.draw( g );
-//        }
-//    }
-
-    public void update ( double delta ) {
+    public void update(double delta) {
         /** check if alive */
         if ( player.getHealth() <= 0 ) {
             gameOver();
         }
 
+        /**TODO: Game should tell player where to move, not the other way around. */
         /** update players location */
         x = player.getX();
         y = player.getY();
 
-        ArrayList< Item > temp = new ArrayList<>( items );
+        ArrayList<Item> temp = new ArrayList<>(items);
 
         /** did you snatch an item? */
         /** TODO: replace constants with item dimensions */
@@ -384,22 +351,23 @@ public class Game extends JFrame implements Runnable {
    /**
     * for when the inventory panel is up and running
     * */
-    public void openInventoryScreen () {
+    public void openInventoryScreen() {
     }
 
-    public void closeInventoryScreen () {
+    public void closeInventoryScreen() {
     }
 
-    public void addItem ( Item item ) {
+    public void addItem( Item item ) {
         items.add( item );
     }
 
-    public ArrayList< BasicEnemy > getEnemies () {
+    public ArrayList<BasicEnemy> getEnemies() {
         return enemies;
     }
 
     protected void onWindowClosing(){
         /** clean up resources */
+        gameCanvas.destroy();
         System.exit(0);
     }
 }

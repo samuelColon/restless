@@ -23,22 +23,21 @@ public class Main extends JFrame {
     /** so I don't have to click new game every single damn time */
     private final boolean DEBUG_MODE = false;
 
-    public Main () {
+    public Main() {
         /** init window util
          *  this GAME_WIDTH = screen.getWidth();
          *
          * */
     }
 
-    private void createAndShowGui () {
-        setPreferredSize( new Dimension( GAME_WIDTH, GAME_HEIGHT ) );
-        setTitle( "Restless" );
-        setLayout( new GridLayout( 1, 1 ) );
+    private void createAndShowGui() {
+        setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
+        setTitle("Restless");
+        setLayout(new GridLayout(1, 1));
         setLocation( 0 - GAME_WIDTH / 2, 0 - GAME_HEIGHT / 2 );
-        setIgnoreRepaint( true );
+        setIgnoreRepaint(true);
 
-        if ( DEBUG_MODE ) {
-//            getContentPane().add( new Game( GAME_WIDTH, GAME_HEIGHT) );
+        if (DEBUG_MODE) {
             new Game(GAME_WIDTH, GAME_HEIGHT);
         } else {
             MainMenu menu = new MainMenu(this); // send menu dimensions once window util is complete
@@ -57,12 +56,9 @@ public class Main extends JFrame {
     }
 
     /**
-     * change out main menu for Game panel
+     * Init Game window
      */
     public void swapFrames () {
-        /**test */
-//        getContentPane().removeAll();
-//        getContentPane().add( new Game( GAME_WIDTH, GAME_HEIGHT ) );
         new Game(GAME_WIDTH, GAME_HEIGHT);
         this.setVisible( false );
     }
@@ -82,6 +78,6 @@ public class Main extends JFrame {
             public void run () {
                 app.createAndShowGui();
             }
-        } );
+        });
     }
 }

@@ -9,11 +9,11 @@ public class GameCanvas extends Canvas {
 
     public GameCanvas(int gameWidth, int gameHeight) {
         super();
-        setSize( gameWidth, gameHeight );
-        setBackground( mBackGroundColor );
-        setIgnoreRepaint( true );
-        requestFocus();
-        setVisible( true );
+        setPreferredSize(new Dimension(gameWidth, gameHeight));
+        setBackground(mBackGroundColor);
+        setIgnoreRepaint(true);
+
+        setVisible(true);
     }
 
     public Canvas getCanvas() {
@@ -29,7 +29,12 @@ public class GameCanvas extends Canvas {
         createBufferStrategy(n);
     }
 
-    /**TODO: will implement after game world is updated */
+    /** TODO: disable is deprecated find alternate solution */
+    public void destroy() {
+        this.disable();
+    }
+
+    /** TODO: will implement after game world is updated */
     public void onScreenResize() {
     }
 }

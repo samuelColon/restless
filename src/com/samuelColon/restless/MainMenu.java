@@ -5,7 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainMenu extends JPanel{
+/**TODO: once xml util is updated show player stats on load game.
+ * i.e Map # 1, 2k gold */
+public class MainMenu extends JPanel {
     public MainMenu ( Main main ) {
 
         setPreferredSize( new Dimension( 500, 500 ) );

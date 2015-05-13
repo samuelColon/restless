@@ -18,33 +18,34 @@ public class Inventory {
     //    public Inventory(ArrayList<Item> currentItems) {
     //        this.currentItems = currentItems;
     //    }
-    public Inventory ( Item[] currentItems ) {
+    public Inventory ( Item[] currentItems, Item[] keyItems ) {
         this.currentItems = currentItems;
+        this.keyItems = keyItems;
     }
 
     /**
      * inventory is empty( most likely a new game )
      */
-    public Inventory () {
+    public Inventory() {
         currentItems = new Item[ 20 ]; // max of 20 items
-        keyItems = new Item[ 5 ];
+        keyItems     = new Item[ 5 ];
     }
 
-    public void useItem ( String item ) {
+    public void useItem (String item) {
         System.out.println( "pretend to use the " + item );
         currentItems[ 1 ] = null;
     }
 
-    public void buyItem () {
+    public void buyItem() {
         System.out.println( "pretend to buy an item" );
     }
 
-    public boolean addItem ( Item item ) {
+    public boolean addItem( Item item ) {
         currentItems[ 0 ] = item;
         return true;
     }
 
-    public boolean dropItem ( Item item ) {
+    public boolean dropItem( Item item ) {
         currentItems[ 1 ] = null;
         return true;
     }
@@ -54,14 +55,14 @@ public class Inventory {
      */
     private int itemValue = 0;
 
-    public int sellItem ( String item ) {
+    public int sellItem( String item ) {
         return itemValue;
     }
 
     /**
      * caution debugging bellow
      */
-    public void printItems () {
+    public void printItems() {
         for ( int i = 0; i < currentItems.length; i++ ) {
             Item temp = currentItems[ i ];
             if ( temp != null ) {
@@ -70,7 +71,7 @@ public class Inventory {
         }
     }
 
-    public void doAction ( int a ) {
+    public void doAction( int a ) {
         switch ( a ) {
             case 1:
                 buyItem();
@@ -80,5 +81,4 @@ public class Inventory {
                 break;
         }
     }
-
 }
