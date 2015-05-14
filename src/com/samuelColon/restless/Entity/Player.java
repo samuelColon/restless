@@ -4,13 +4,13 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.util.ArrayList;
 
-/** TODO: major refactoring, remove Game references. game dimensions.
- *      player class should not know anything about the game engine.
- * */
 public class Player implements LivingEntity{
 
+    /** Players location */
     private volatile int x;
     private volatile int y;
+
+    /** temp dimension of player char */
     private final int BLOCK_SIZE = 10;
 
     /**
@@ -24,8 +24,8 @@ public class Player implements LivingEntity{
     /**
      * Health bar components
      */
-    int hx = 15;
-    int hy = 15;
+    private int hx = 15;
+    private int hy = 15;
 
     /**
      * shooting
@@ -33,23 +33,23 @@ public class Player implements LivingEntity{
     private long timeSinceLastShot       = 0;
     private ArrayList<Bullet> shotsFired = new ArrayList<>();
 
-    /** TODO: one xml utility is complete. Create a way to switch a users weapon */
+    /** TODO: once xml utility is complete. Create a way to switch a users weapon */
 /*  shot interval bullet strength, and bullet speed and range will all be upgradable */
-    private enum currentWeapon{};
-    private int shotInterval   = 200;
+    private enum currentWeapon{}
+    private int shotInterval   = 300;
     private int bulletStrength = 50;
 
     /**
      * The current direction the player is facing
      * TODO: convert this to enum
      */
-    public volatile int directionFacing = 0;
-    public final int FACING_LEFT        = 1;
-    public final int FACING_UP          = 2;
-    public final int FACING_RIGHT       = 3;
-    public final int FACING_DOWN        = 4;
+    private volatile int directionFacing = 0;
+    private final int FACING_LEFT        = 1;
+    private final int FACING_UP          = 2;
+    private final int FACING_RIGHT       = 3;
+    private final int FACING_DOWN        = 4;
 
-    private final int jukeLength        = 16;
+    private int jukeLength               = 16;
 
     /**
      * players current inventory
@@ -64,16 +64,13 @@ public class Player implements LivingEntity{
         inventory = new Inventory();
     }
 
-    /**
-     * TODO: this will now be handled by game engine
-     * called when space button is pressed, adds bullets to array list
-     */
-    public void shoot () {
-//        if ( timeSinceLastShot + shotInterval < System.currentTimeMillis() ) {
-//            game.SmGunshot.play();
-//            shotsFired.add( new Bullet( this, game.getEnemies(), x, y, directionFacing ) );
-//            timeSinceLastShot = System.currentTimeMillis();
-//        }
+    public boolean shoot(ArrayList<BasicEnemy> enemies) {
+        if (timeSinceLastShot + shotInterval < System.currentTimeMillis()) {
+            shotsFired.add(new Bullet(enemies, x, y, directionFacing));
+            timeSinceLastShot = System.currentTimeMillis();
+            return true;
+        }
+        return false;
     }
 
     public void draw(Graphics g) {
@@ -87,10 +84,10 @@ public class Player implements LivingEntity{
         g.fillRect(hx, hy, mCurrentHealth / 4, 10);
 
         /** draw bullets */
-        ArrayList< Bullet > temp = new ArrayList<>(shotsFired);
+        ArrayList<Bullet> temp = new ArrayList<>(shotsFired);
 
         for ( Bullet b : temp ) {
-            if ( b.withinBounds() && !b.expired ) {
+            if (b.withinBounds() && !b.expired) {
                 b.draw(g);
                 b.move();
             } else {
@@ -99,7 +96,7 @@ public class Player implements LivingEntity{
         }
     }
 
-    public void gainExp (int exp) {
+    public void gainExp(int exp) {
         /** first increment experience than check if the player has leveled */
         this.mExp += exp;
     }
@@ -119,6 +116,8 @@ public class Player implements LivingEntity{
     public void setHealth(int health) {
         mCurrentHealth = health;
     }
+
+    public boolean isAlive() { return mCurrentHealth > 0; }
 
     public int getX() {
         return x;
@@ -145,10 +144,6 @@ public class Player implements LivingEntity{
 //            this.y = y;
 //        }
         this.y = y;
-    }
-
-    public void move(int directionFacing) {
-        this.directionFacing = directionFacing;
     }
 
     public void setDirection(int directionFacing) {

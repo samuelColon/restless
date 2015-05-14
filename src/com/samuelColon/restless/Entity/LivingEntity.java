@@ -16,4 +16,6 @@ public interface LivingEntity extends Entity {
     public int getX ();
 
     public int getY ();
+
+    boolean isAlive();
 }
