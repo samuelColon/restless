@@ -1,6 +1,5 @@
 package com.samuelColon.restless.Entity;
 
-import com.samuelColon.restless.Game;
 import java.awt.*;
 
 /**
@@ -13,6 +12,7 @@ public class BasicEnemy implements LivingEntity {
     /**
      * enemy specs
      */
+
     private int maxHealth     = 200;
     private int currentHealth = maxHealth;
     private int hx;
@@ -31,23 +31,21 @@ public class BasicEnemy implements LivingEntity {
     /**
      * misc
      */
-    private int element;
 
-    public BasicEnemy ( Game game, int element ) {
-        this.element = element;
-        hx           = x;
-        hy           = y;
+    public BasicEnemy(int x, int y) {
+        this.x = x;
+        this.y =y;
+        hx = x;
+        hy = y;
     }
 
-    public void dieGracefully() {
-        dropItem();
-    }
+    public boolean isAlive() { return currentHealth > 0; }
 
     /**
-     * add draw enemy healthbar
+     * draw enemy health bar
      */
     @Override
-    public void draw ( Graphics g ) {
+    public void draw(Graphics g) {
         g.setColor(currentColor);
         g.fillRect(x, y, dimensions, dimensions);
 
@@ -62,7 +60,7 @@ public class BasicEnemy implements LivingEntity {
         if (currentColor != Color.RED) currentColor = Color.RED;
     }
 
-    private Item dropItem () {
+    public Item droppedItem () {
         return new Item("Potion", x, y);
     }
 
@@ -74,9 +72,6 @@ public class BasicEnemy implements LivingEntity {
     @Override
     public void setHealth ( int damage ) {
         currentHealth -= damage;
-        if ( currentHealth <= 0 )
-            dieGracefully();
-
         currentColor = Color.white;
     }
 

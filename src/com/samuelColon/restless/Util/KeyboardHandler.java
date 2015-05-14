@@ -16,7 +16,6 @@ public class KeyboardHandler implements KeyListener {
         polled = new int[256];
     }
 
-    /** is at least one key pressed? */
     public boolean keyDown(int keyCode) {
         return polled[keyCode] > 0;
     }
@@ -42,7 +41,7 @@ public class KeyboardHandler implements KeyListener {
         }
     }
 
-    public synchronized  void keyReleased(KeyEvent e) {
+    public synchronized void keyReleased(KeyEvent e) {
         int keyCode = e.getKeyCode();
         if( keyCode >=0 && keyCode < keys.length) {
             keys[keyCode] = false;

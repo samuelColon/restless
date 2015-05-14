@@ -9,8 +9,8 @@ public class Main extends JFrame {
 
     /**
      * Current screen dimensions
-
      */
+
     private final int GAME_WIDTH  = 600;
     private final int GAME_HEIGHT = 500;
 
@@ -26,7 +26,6 @@ public class Main extends JFrame {
     public Main() {
         /** init window util
          *  this GAME_WIDTH = screen.getWidth();
-         *
          * */
     }
 
@@ -43,6 +42,7 @@ public class Main extends JFrame {
             MainMenu menu = new MainMenu(this); // send menu dimensions once window util is complete
             getContentPane().add(menu.getMenu());
         }
+
         pack();
         setVisible( true );
 //        setResizable( false );
@@ -60,6 +60,8 @@ public class Main extends JFrame {
      */
     public void swapFrames () {
         new Game(GAME_WIDTH, GAME_HEIGHT);
+        getContentPane().removeAll();
+        setFocusable( false );
         this.setVisible( false );
     }
 

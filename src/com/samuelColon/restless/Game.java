@@ -8,7 +8,6 @@ import com.samuelColon.restless.Util.KeyboardHandler;
 import com.samuelColon.restless.Util.SoundManager;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -17,56 +16,54 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Game extends JFrame implements Runnable {
-    /** player coordinates */
-    int x = 245;
-    int y = 400;
-
-    /**
-     * players current movement speed, will change once time and space gets updated
-     */
-    private final int MOVEMENT_SPEED = 4;
-
     /**
      * Dimensions of the wrapper
      */
     private final int GAME_WIDTH;
     private final int GAME_HEIGHT;
 
-    private KeyboardHandler keyHandler;
-
-    /**
-     * TODO: replace with background sprite(s)
-     */
-    private final Color backGroundColor = Color.GREEN;
-
-    private FrameRate frameRate;
-
-    /**
-     * player entity
-     */
-    private Player player;
-
-    public ArrayList<BasicEnemy> enemies = new ArrayList<>();
-    private int amountOfEnemies = 0;
-
-    /**
-     * sound files
-     */
-    private final String FILE_PATH = "res/sounds";
-    private final String BACKGROUND_MUSIC_FILE = "mainBackGroundMusic.wav";
-    private final String SHOOTING_SOUND_FILE = "gunShot.wav";
-
     /**
      * The drawing component
      */
     private GameCanvas gameCanvas;
     private BufferStrategy bs;
+    /**
+     * TODO: replace with background sprite(s)
+     */
+    private final Color backGroundColor = Color.GREEN;
+    private FrameRate frameRate;
 
     private Thread gameThread;
 
+    private KeyboardHandler keyHandler;
+
+    /**
+     * sound files
+     */
+    private final String FILE_PATH             = "res/sounds";
+    private final String BACKGROUND_MUSIC_FILE = "mainBackGroundMusic.wav";
+    private final String SHOOTING_SOUND_FILE   = "gunShot.wav";
+
+    private Player player;
+
+    /** player coordinates */
+    private int playerX = 265;
+    private int playerY = 400;
+
+    /**
+     * players current movement speed, will change once time and space gets updated
+     */
+    private final double MOVEMENT_SPEED = .085;
+
+    public final int FACING_LEFT  = 1;
+    public final int FACING_UP    = 2;
+    public final int FACING_RIGHT = 3;
+    public final int FACING_DOWN  = 4;
+
+    private ArrayList<BasicEnemy> enemies = new ArrayList<>();
+    
     public Game(int gameWidth, int gameHeight) {
 
         GAME_WIDTH  = gameWidth;
@@ -94,24 +91,24 @@ public class Game extends JFrame implements Runnable {
         pack();
 
         /** init key bindings */
-//        createInputMap();
         keyHandler = new KeyboardHandler();
         addKeyListener(keyHandler);
 
         /** Hide that hideous mouse when we're playing! */
-        setCursor( getToolkit().createCustomCursor( new BufferedImage( 3, 3, BufferedImage.TYPE_INT_ARGB ), new Point( 0, 0 ), "null" ) );
+        setCursor(getToolkit().createCustomCursor(
+                new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "null") );
 
         /** Note: this will replaced when Xml utility is complete */
         /** init player */
-        player = new Player(x, y);
+        player = new Player( playerX, playerY );
 
         /** init enemies */
-        enemies.add( new BasicEnemy( this, amountOfEnemies++ ) );
+        enemies.add(new BasicEnemy(250, 250));
 
         initSounds();
 
         /** Run the game */
-        gameThread = new Thread( this );
+        gameThread = new Thread(this);
         gameThread.start();
     }
 
@@ -120,77 +117,11 @@ public class Game extends JFrame implements Runnable {
 
     private void initSounds() {
         /** init background music */
-        SmBackground = new SoundManager( new File( FILE_PATH, BACKGROUND_MUSIC_FILE ), true );
+        SmBackground = new SoundManager( new File(FILE_PATH, BACKGROUND_MUSIC_FILE), true); // true = loop sound
         /** init shooting sound */
-        SmGunshot    = new SoundManager( new File( FILE_PATH, SHOOTING_SOUND_FILE ), false );
+        SmGunshot    = new SoundManager( new File(FILE_PATH, SHOOTING_SOUND_FILE), false);
     }
 
-    /** TODO: Use KeyboardHandler class when game is better structured */
-/**    private void createInputMap () {
-//        InputMap im = this.getInputMap( JPanel.WHEN_IN_FOCUSED_WINDOW );
-//        ActionMap am = this.getActionMap();
-//
-//        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_LEFT, 0 ), "left" );
-//        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_RIGHT, 0 ), "right" );
-//        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_UP, 0 ), "up" );
-//        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_DOWN, 0 ), "down" );
-//        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_SPACE, 0 ), "space" );
-//        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_I, 0 ), "inventory" );
-//        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_Q, 0 ), "juke" );
-//
-//        //        KeyboardHandler keyHandler = new KeyboardHandler(this);
-//        //        am.put("left", keyHandler);
-//
-//        am.put( "left", new AbstractAction() {
-//            @Override
-//            public void actionPerformed ( ActionEvent e ) {
-//                player.directionFacing = player.FACING_LEFT;
-//                x = player.getX();
-//                player.setX( x -= MOVEMENT_SPEED );
-//            }
-//        } );
-//
-//        am.put( "up", new AbstractAction() {
-//            @Override
-//            public void actionPerformed ( ActionEvent e ) {
-//                player.directionFacing = player.FACING_UP;
-//                y = player.getY();
-//                player.setY( y -= MOVEMENT_SPEED );
-//            }
-//        } );
-//
-//        am.put( "down", new AbstractAction() {
-//            @Override
-//            public void actionPerformed ( ActionEvent e ) {
-//                player.directionFacing = player.FACING_DOWN;
-//                y = player.getY();
-//                player.setY( y += MOVEMENT_SPEED );
-//            }
-//        } );
-//
-//        am.put( "right", new AbstractAction() {
-//            @Override
-//            public void actionPerformed ( ActionEvent e ) {
-//                player.directionFacing = player.FACING_RIGHT;
-//                x = player.getX();
-//                player.setX( x += MOVEMENT_SPEED );
-//            }
-//        } );
-//
-//        am.put( "juke", new AbstractAction() {
-//            @Override
-//            public void actionPerformed ( ActionEvent e ) {
-//                player.juke();
-//            }
-//        } );
-//
-//        am.put( "space", new AbstractAction() {
-//            @Override
-//            public void actionPerformed ( ActionEvent e ) {
-//                player.shoot();
-//            }
-//        } );
-*/
     private volatile boolean gameRunning;
     private volatile boolean gamePaused;
 
@@ -205,12 +136,10 @@ public class Game extends JFrame implements Runnable {
         long lastTime = curTime;
         double nsPerFrame;
 
-        /** begin background music */
 //        SmBackground.play();
 
         while( gameRunning ) {
             if( !gamePaused ) {
-                /** record time */
                 curTime    = System.nanoTime();
                 nsPerFrame = curTime - lastTime;
                 gameLoop( nsPerFrame / 1.0E6 );
@@ -219,32 +148,99 @@ public class Game extends JFrame implements Runnable {
         }
     }
 
-    private void gameLoop( double delta ) {
+    private void gameLoop(double delta) {
         checkForUserInput();
         update(delta);
         renderFrame();
         sleep(delta);
     }
 
-    /** cmon you can do better than that Sam. */
+    private boolean playerIsMoving;
     private void checkForUserInput() {
+        playerIsMoving = false;
         keyHandler.poll();
 
-        if(keyHandler.keyDownOnce( KeyEvent.VK_SPACE)) {
-            System.out.println("space");
-        }
-        if(keyHandler.keyDown(KeyEvent.VK_UP)) {
-            System.out.println("up");
-        }
-        if(keyHandler.keyDown(KeyEvent.VK_DOWN)) {
-            System.out.println("down");
+        if(keyHandler.keyDownOnce(KeyEvent.VK_SPACE)) {
+            if(player.shoot(enemies)) {
+                SmGunshot.play();
+            }
         }
         if(keyHandler.keyDown(KeyEvent.VK_LEFT)) {
-            System.out.println("left");
+            playerIsMoving = true;
+            player.setDirection(FACING_LEFT);
+        }
+        if(keyHandler.keyDown(KeyEvent.VK_UP)) {
+            playerIsMoving = true;
+            player.setDirection(FACING_UP);
         }
         if(keyHandler.keyDown(KeyEvent.VK_RIGHT)) {
-            System.out.println("Right");
+            playerIsMoving = true;
+            player.setDirection(FACING_RIGHT);
         }
+        if(keyHandler.keyDown(KeyEvent.VK_DOWN)) {
+            playerIsMoving = true;
+            player.setDirection(FACING_DOWN);
+        }
+    }
+
+    public void update(double delta) {
+        if (!player.isAlive()) gameOver();
+
+        if (playerIsMoving) {
+            movePlayer(delta);
+            playerX = player.getX();
+            playerY = player.getY();
+        }
+
+        ArrayList<Item> temp = new ArrayList<>(items);
+
+        /** did you snatch an item? */
+        /** TODO: replace constants with item dimensions */
+        for (Item i : temp) {
+            if ( (playerX >= i.getX()     && playerX <= i.getX() + 5) &&
+                    (playerY <= i.getY() + 5 && playerY >= i.getY()) )
+            {
+                player.addItem(i);
+                items.remove( i );
+            }
+        }
+    }
+
+    /** player movement is now based off how much time has passed between frames
+     *   however for some reason moving up and to the left is faster than moving down or to the right.
+     *     maybe being rounded up and down respectively. Please investigate.
+     *
+     *            - ~
+     *           (o.0)
+     *              `p   <- * Sherlocks pipe *
+     *
+     *  May 14th, 2015
+     */
+
+    private void movePlayer(double delta) {
+        double distance = delta * MOVEMENT_SPEED;
+        System.out.println(distance);
+
+        switch(player.getDirection()) {
+            case FACING_LEFT:
+                if (playerWithinBounds(playerX -= distance, playerY)) player.setX(playerX -= distance);
+                break;
+            case FACING_UP:
+                if (playerWithinBounds(playerX, playerY -= distance)) player.setY( playerY -= distance );
+                break;
+            case FACING_RIGHT:
+                if (playerWithinBounds(playerX += distance, playerY)) player.setX(playerX += distance);
+                break;
+            case FACING_DOWN:
+                if (playerWithinBounds(playerX, playerY += distance)) player.setY(playerY += distance);
+                break;
+        }
+    }
+
+    private boolean playerWithinBounds(int x, int y) {
+        return  (x > 0 && y > 0)
+                  &&
+                (x < GAME_WIDTH && y < GAME_HEIGHT);
     }
 
     private void renderFrame() {
@@ -266,6 +262,11 @@ public class Game extends JFrame implements Runnable {
         } while(bs.contentsLost());
     }
 
+    /**
+     * TODO: write sprite manager class and give these guys some damn textures....damnit
+     TODO: When world size is created use delta for movement
+     */
+    private ArrayList<Item> items = new ArrayList<>();
     private void render(Graphics g) {
         /** background */
         g.setColor(backGroundColor);
@@ -276,22 +277,26 @@ public class Game extends JFrame implements Runnable {
         g.setColor(Color.BLACK);
         g.drawString(frameRate.getFrameRate(), 540, 30);
 
-        /** draw players, bullets and enemies */
         player.draw(g);
 
         ArrayList<BasicEnemy> temp1 = new ArrayList<>(enemies);
-        for( BasicEnemy badGuys: temp1 ) {
-            badGuys.draw(g);
+        for( BasicEnemy e: temp1 ) {
+            if(e.isAlive()) {
+                e.draw(g);
+            } else {
+                items.add(e.droppedItem());
+                enemies.remove(e);
+            }
         }
 
         ArrayList<Item> temp2 = new ArrayList<>(items);
-        for( Item invn: temp2) {
+        for(Item invn: temp2) {
             invn.draw(g);
         }
     }
 
     /**
-     * target frames per milli second (60 fps)
+     * target frames per millisecond (60 fps)
      */
     private double targetFpms = 1000 / 60;
 
@@ -308,46 +313,6 @@ public class Game extends JFrame implements Runnable {
         }
     }
 
-    public void gameOver() {
-        gameRunning = false;
-    }
-
-    public void enemyKilled(int element, int exp) {
-        enemies.remove(element);
-        player.gainExp(exp);
-        System.out.println("Gained " + exp + " experience");
-        amountOfEnemies--;
-    }
-
-    /**
-     * TODO: write sprite manager class and give these guys some damn textures....damnit
-       TODO: When world size is created use delta for movement
-     */
-    private ArrayList<Item> items = new ArrayList<>();
-
-    public void update(double delta) {
-        /** check if alive */
-        if ( player.getHealth() <= 0 ) {
-            gameOver();
-        }
-
-        /**TODO: Game should tell player where to move, not the other way around. */
-        /** update players location */
-        x = player.getX();
-        y = player.getY();
-
-        ArrayList<Item> temp = new ArrayList<>(items);
-
-        /** did you snatch an item? */
-        /** TODO: replace constants with item dimensions */
-        for ( Item i : temp ) {
-            if ( ( x >= i.getX() && x <= i.getX() + 5 ) && ( y <= i.getY() + 5 && y >= i.getY() ) ) {
-                player.addItem( i );
-                items.remove( i );
-            }
-        }
-    }
-
    /**
     * for when the inventory panel is up and running
     * */
@@ -357,17 +322,24 @@ public class Game extends JFrame implements Runnable {
     public void closeInventoryScreen() {
     }
 
-    public void addItem( Item item ) {
+    public void addItem(Item item) {
         items.add( item );
     }
 
-    public ArrayList<BasicEnemy> getEnemies() {
-        return enemies;
+    public void gameOver() {
+        gameRunning = false;
     }
 
     protected void onWindowClosing(){
         /** clean up resources */
         gameCanvas.destroy();
+
+        try {
+            gameThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.exit(0);
     }
 }

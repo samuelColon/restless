@@ -42,7 +42,7 @@ public class XmlParser {
     }
 
     private void inspectXml ( Node node ) {
-//                printNode(node);
+//        printNode(node);
         if ( node.hasAttributes() ) {
             NamedNodeMap nodeMap = node.getAttributes();
             for ( int i = 0; i < nodeMap.getLength(); ++ i ) {
