@@ -9,10 +9,6 @@ import java.awt.*;
 
 public class BasicEnemy implements LivingEntity {
 
-    /**
-     * enemy specs
-     */
-
     private int maxHealth     = 200;
     private int currentHealth = maxHealth;
     private int hx;
@@ -60,38 +56,40 @@ public class BasicEnemy implements LivingEntity {
         if (currentColor != Color.RED) currentColor = Color.RED;
     }
 
-    public Item droppedItem () {
+    public Item getItem() {
         return new Item("Potion", (int)x,(int) y);
     }
 
+    public boolean hasItem() { return true; }
+
     @Override
-    public int getHealth () {
+    public int getHealth() {
         return currentHealth;
     }
 
     @Override
-    public void setHealth ( int damage ) {
+    public void setHealth(int damage) {
         currentHealth -= damage;
         currentColor = Color.white;
     }
 
     @Override
-    public void setX ( double x ) {
+    public void setX(double x) {
         this.x = x;
     }
 
     @Override
-    public void setY ( double y ) {
+    public void setY (double y) {
         this.y = y;
     }
 
     @Override
-    public double getX () {
+    public double getX() {
         return x;
     }
 
     @Override
-    public double getY () {
+    public double getY() {
         return y;
     }
 }

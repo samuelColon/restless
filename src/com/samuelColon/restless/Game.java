@@ -52,7 +52,7 @@ public class Game extends JFrame implements Runnable {
     private double playerX = 265;
     private double playerY = 400;
 
-    private final double PLAYERS_MOVEMENT_SPEED = .085;
+    private final double PLAYERS_MOVEMENT_SPEED = .070;
 
     public final int FACING_LEFT  = 1;
     public final int FACING_UP    = 2;
@@ -137,10 +137,14 @@ public class Game extends JFrame implements Runnable {
 
         while( gameRunning ) {
             if( !gamePaused ) {
-                curTime    = System.nanoTime();
-                nsPerFrame = curTime - lastTime;
-                gameLoop( nsPerFrame / 1.0E6 );
-                lastTime   = curTime;
+                if (hasFocus()) {
+                    curTime = System.nanoTime();
+                    nsPerFrame = curTime - lastTime;
+                    gameLoop( nsPerFrame / 1.0E6 );
+                    lastTime = curTime;
+                } else {
+                    requestFocus();
+                }
             }
         }
     }
@@ -188,7 +192,7 @@ public class Game extends JFrame implements Runnable {
             playerY = player.getY();
         }
 
-        ArrayList<Item> temp = new ArrayList<>(items);
+        ArrayList<Item> temp = new ArrayList<>( itemsOnMap );
 
         /** did you snatch an item? */
         /** TODO: replace constants with item dimensions */
@@ -197,7 +201,7 @@ public class Game extends JFrame implements Runnable {
                     (playerY <= i.getY() + 5 && playerY >= i.getY()) )
             {
                 player.addItem(i);
-                items.remove( i );
+                itemsOnMap.remove( i );
             }
         }
     }
@@ -259,7 +263,7 @@ public class Game extends JFrame implements Runnable {
     /**
      * TODO: write sprite manager class and give these guys some damn textures....damnit
      */
-    private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<Item> itemsOnMap = new ArrayList<>();
     private void render(Graphics g) {
         g.setColor(backGroundColor);
         g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT - 1);
@@ -270,17 +274,20 @@ public class Game extends JFrame implements Runnable {
 
         player.draw(g);
 
+
+        /** drawing is done based on a copy of each array
+         *  to avoid a Concurrent Modification Exception */
         ArrayList<BasicEnemy> temp1 = new ArrayList<>(enemies);
         for( BasicEnemy e: temp1 ) {
             if(e.isAlive()) {
                 e.draw(g);
             } else {
-                items.add(e.droppedItem());
+                if (e.hasItem()) itemsOnMap.add(e.getItem());
                 enemies.remove(e);
             }
         }
 
-        ArrayList<Item> temp2 = new ArrayList<>(items);
+        ArrayList<Item> temp2 = new ArrayList<>( itemsOnMap );
         for(Item invn: temp2) {
             invn.draw(g);
         }
@@ -313,7 +320,7 @@ public class Game extends JFrame implements Runnable {
     }
 
     public void addItem(Item item) {
-        items.add( item );
+        itemsOnMap.add( item );
     }
 
     private void gameOver() {
@@ -323,7 +330,7 @@ public class Game extends JFrame implements Runnable {
     public void onWindowClosing(){
         /** clean up resources */
         gameCanvas.destroy();
-        gameRunning = false;
+        gameOver();
         try {
             gameThread.join();
         } catch (InterruptedException e) {
@@ -331,8 +338,4 @@ public class Game extends JFrame implements Runnable {
         }
         System.exit(0);
     }
-
-//    public void onWindowClosing() {
-//
-//    }
 }

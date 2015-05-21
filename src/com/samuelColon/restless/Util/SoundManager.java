@@ -14,11 +14,6 @@ public class SoundManager {
         this.loopAudio = loopAudio;
     }
 
-    /** This method is taken because each it's own clip object
-     *      clip object will be disposed of once sound has finished played via line listener
-     *
-     *
-     * */
     public void play() {
         try {
             clip = (Clip) AudioSystem.getLine( new Line.Info( Clip.class ) );
