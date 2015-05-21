@@ -320,7 +320,7 @@ public class Game extends JFrame implements Runnable {
         gameRunning = false;
     }
 
-    protected void onWindowClosing(){
+    public void onWindowClosing(){
         /** clean up resources */
         gameCanvas.destroy();
         gameRunning = false;
@@ -331,4 +331,8 @@ public class Game extends JFrame implements Runnable {
         }
         System.exit(0);
     }
+
+//    public void onWindowClosing() {
+//
+//    }
 }
