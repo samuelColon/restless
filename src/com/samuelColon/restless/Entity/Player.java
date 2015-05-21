@@ -49,8 +49,6 @@ public class Player implements LivingEntity{
     private final int FACING_RIGHT       = 3;
     private final int FACING_DOWN        = 4;
 
-    private int jukeLength               = 16;
-
     /**
      * players current inventory
      */
@@ -125,9 +123,7 @@ public class Player implements LivingEntity{
     }
 
     public void setX(double x) {
-        double temp = this.x;
         this.x = x;
-//        System.out.println("Moved " + (temp - this.x));
     }
 
     public double getY() {
@@ -135,9 +131,7 @@ public class Player implements LivingEntity{
     }
 
     public void setY(double y) {
-        double temp = this.y;
         this.y = y;
-//        System.out.println("Moved " + Math.abs(temp - this.y));
     }
 
     public void setDirection(int directionFacing) {
@@ -147,24 +141,4 @@ public class Player implements LivingEntity{
     public int getDirection() {
         return directionFacing;
     }
-
-    /** Maybe remove juke feature.
-     * juke works as expected with the exception that it does not check for collision
-     */
-//    public void juke() {
-//        switch ( directionFacing ) {
-//            case FACING_LEFT:
-//                setX( x -= jukeLength );
-//                break;
-//            case FACING_UP:
-//                setY( y -= jukeLength );
-//                break;
-//            case FACING_RIGHT:
-//                setX( x += jukeLength );
-//                break;
-//            case FACING_DOWN:
-//                setY( y += jukeLength );
-//                break;
-//        }
-//    }
 }

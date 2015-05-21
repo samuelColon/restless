@@ -16,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Game extends JFrame implements Runnable {
     /**
@@ -58,7 +59,7 @@ public class Game extends JFrame implements Runnable {
     public final int FACING_RIGHT = 3;
     public final int FACING_DOWN  = 4;
 
-    private ArrayList<BasicEnemy> enemies = new ArrayList<>();
+    private ArrayList<BasicEnemy> enemies;
     
     public Game(int gameWidth, int gameHeight) {
         GAME_WIDTH  = gameWidth;
@@ -98,6 +99,7 @@ public class Game extends JFrame implements Runnable {
         player = new Player( playerX, playerY );
 
         /** init enemies */
+        enemies = new ArrayList<>();
         enemies.add(new BasicEnemy(250, 250));
 
         initSounds();
@@ -180,7 +182,6 @@ public class Game extends JFrame implements Runnable {
 
     private void update(double delta) {
         if (!player.isAlive()) gameOver();
-//        System.out.println( delta );
         if (playerIsMoving) {
             movePlayer(delta);
             playerX = player.getX();
@@ -213,9 +214,7 @@ public class Game extends JFrame implements Runnable {
      */
 
     private void movePlayer(double delta) {
-//        double distance = Math.floor((delta * PLAYERS_MOVEMENT_SPEED));
-        double distance = Math.abs(delta * PLAYERS_MOVEMENT_SPEED);
-//        System.out.println(distance);
+        double distance = delta * PLAYERS_MOVEMENT_SPEED;
 
         switch(player.getDirection()) {
             case FACING_LEFT:
@@ -246,7 +245,6 @@ public class Game extends JFrame implements Runnable {
 
                 try {
                     g = bs.getDrawGraphics();
-                    g.clearRect(0, 0, getWidth(), getHeight());
                     render(g);
                 } finally {
                     if (g != null) {
@@ -289,17 +287,16 @@ public class Game extends JFrame implements Runnable {
     }
 
     /**
-     * target frames per millisecond (60 fps)
+     * 60 fps in milliseconds
      */
-//    private double targetFpms = 1000 / 60;
-    private double targetFpms = 16.66;
+    private double targetFrameRate = 1000/60;
     /**
      * if rendering is ahead of schedule sleep thread, else continue
      */
     private void sleep(double delta) {
-        if (delta < targetFpms) {
+        if (delta < targetFrameRate ) {
             try {
-                Thread.sleep( (long) (targetFpms - delta) );
+                TimeUnit.MILLISECONDS.sleep( (long) (targetFrameRate - delta) );
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -326,13 +323,12 @@ public class Game extends JFrame implements Runnable {
     protected void onWindowClosing(){
         /** clean up resources */
         gameCanvas.destroy();
-
+        gameRunning = false;
         try {
             gameThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         System.exit(0);
     }
 }

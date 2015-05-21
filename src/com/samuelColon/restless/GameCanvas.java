@@ -12,7 +12,7 @@ public class GameCanvas extends Canvas {
         setPreferredSize(new Dimension(gameWidth, gameHeight));
         setBackground(mBackGroundColor);
         setIgnoreRepaint(true);
-
+        requestFocus();
         setVisible(true);
     }
 
