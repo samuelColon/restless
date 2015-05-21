@@ -5,11 +5,11 @@ import java.awt.Graphics;
 public interface Entity {
     public void draw ( Graphics g );
 
-    public void setX ( int x );
+    public void setX ( double x );
 
-    public void setY ( int y );
+    public void setY ( double y );
 
-    public int getX ();
+    public double getX ();
 
-    public int getY ();
+    public double getY ();
 }

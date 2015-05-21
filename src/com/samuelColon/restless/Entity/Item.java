@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class Item implements Entity {
     public String itemType;
-    public int x;
-    public int y;
+    public double x;
+    public double y;
 
     public Item ( String itemType, int x, int y ) {
         this.itemType = itemType;
@@ -24,18 +24,18 @@ public class Item implements Entity {
     }
 
     @Override
-    public void setX ( int x ) {
+    public void setX ( double x ) {
     }
 
     @Override
-    public void setY ( int y ) {
+    public void setY ( double y ) {
     }
 
-    public int getX () {
+    public double getX () {
         return x;
     }
 
-    public int getY () {
+    public double getY () {
         return y;
     }
 }

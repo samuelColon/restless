@@ -18,8 +18,8 @@ public class BasicEnemy implements LivingEntity {
     private int hx;
     private int hy;
 
-    private int x         = 250;
-    private int y         = 250;
+    private double x         = 250;
+    private double y         = 250;
     public int dimensions = 20;
     private int exp       = 20; // experience player will gain by killing this particular enemy
 
@@ -47,21 +47,21 @@ public class BasicEnemy implements LivingEntity {
     @Override
     public void draw(Graphics g) {
         g.setColor(currentColor);
-        g.fillRect(x, y, dimensions, dimensions);
+        g.fillRect((int)x, (int)y, dimensions, dimensions);
 
         /** draw enemy maxHealth bar */
         g.setColor(Color.black);
-        g.fillRect(x - 4, (y - 15), maxHealth / 10, 5);
+        g.fillRect((int)x - 4, (int)(y - 15), maxHealth / 10, 5);
 
         g.setColor(Color.red);
-        g.fillRect(x - 4, (y - 15), currentHealth / 10, 5);
+        g.fillRect((int)x - 4, (int)(y - 15), currentHealth / 10, 5);
 
         /** set the enemy color back to the original red */
         if (currentColor != Color.RED) currentColor = Color.RED;
     }
 
     public Item droppedItem () {
-        return new Item("Potion", x, y);
+        return new Item("Potion", (int)x,(int) y);
     }
 
     @Override
@@ -76,22 +76,22 @@ public class BasicEnemy implements LivingEntity {
     }
 
     @Override
-    public void setX ( int x ) {
+    public void setX ( double x ) {
         this.x = x;
     }
 
     @Override
-    public void setY ( int y ) {
+    public void setY ( double y ) {
         this.y = y;
     }
 
     @Override
-    public int getX () {
+    public double getX () {
         return x;
     }
 
     @Override
-    public int getY () {
+    public double getY () {
         return y;
     }
 }

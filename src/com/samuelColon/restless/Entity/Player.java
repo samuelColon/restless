@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class Player implements LivingEntity{
 
     /** Players location */
-    private volatile int x;
-    private volatile int y;
+    private volatile double x;
+    private volatile double y;
 
     /** temp dimension of player char */
     private final int BLOCK_SIZE = 10;
@@ -56,7 +56,7 @@ public class Player implements LivingEntity{
      */
     private Inventory inventory;
 
-    public Player(int x, int y) {
+    public Player(double x, double y) {
         this.x = x;
         this.y = y;
 
@@ -76,7 +76,7 @@ public class Player implements LivingEntity{
     public void draw(Graphics g) {
         /** draw player */
         g.setColor(Color.BLACK);
-        g.fillRect(x, y, BLOCK_SIZE, BLOCK_SIZE);
+        g.fillRect((int)x, (int)y, BLOCK_SIZE, BLOCK_SIZE);
 
         /** draw health bar */
         g.fillRect(hx, hy, mMaxHealth / 4, 10);
@@ -87,7 +87,10 @@ public class Player implements LivingEntity{
         ArrayList<Bullet> temp = new ArrayList<>(shotsFired);
 
         for ( Bullet b : temp ) {
-            if (b.withinBounds() && !b.expired) {
+            double bX = b.getX();
+            double bY = b.getY();
+            if ((bX > 0 && bY > 0 && bX < 600 && bY < 500)
+                    && !b.expired) {
                 b.draw(g);
                 b.move();
             } else {
@@ -97,7 +100,6 @@ public class Player implements LivingEntity{
     }
 
     public void gainExp(int exp) {
-        /** first increment experience than check if the player has leveled */
         this.mExp += exp;
     }
 
@@ -119,31 +121,24 @@ public class Player implements LivingEntity{
 
     public boolean isAlive() { return mCurrentHealth > 0; }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
-//        if ( x + BLOCK_SIZE - 1 >= GAME_WIDTH || x <= 0 ) {
-//            // illegal move
-//        } else {
-//            this.x = x;
-//        }
-
+    public void setX(double x) {
+        double temp = this.x;
         this.x = x;
+        System.out.println("Moved " + Math.abs(temp - this.x));
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY( int y) {
-//        if ( y <= 0 || y + BLOCK_SIZE >= GAME_WIDTH ) {
-//            // illegal move
-//        } else {
-//            this.y = y;
-//        }
+    public void setY(double y) {
+        double temp = this.y;
         this.y = y;
+        System.out.println("Moved " + Math.abs(temp - this.y));
     }
 
     public void setDirection(int directionFacing) {
@@ -157,20 +152,20 @@ public class Player implements LivingEntity{
     /** Maybe remove juke feature.
      * juke works as expected with the exception that it does not check for collision
      */
-    public void juke() {
-        switch ( directionFacing ) {
-            case FACING_LEFT:
-                setX( x -= jukeLength );
-                break;
-            case FACING_UP:
-                setY( y -= jukeLength );
-                break;
-            case FACING_RIGHT:
-                setX( x += jukeLength );
-                break;
-            case FACING_DOWN:
-                setY( y += jukeLength );
-                break;
-        }
-    }
+//    public void juke() {
+//        switch ( directionFacing ) {
+//            case FACING_LEFT:
+//                setX( x -= jukeLength );
+//                break;
+//            case FACING_UP:
+//                setY( y -= jukeLength );
+//                break;
+//            case FACING_RIGHT:
+//                setX( x += jukeLength );
+//                break;
+//            case FACING_DOWN:
+//                setY( y += jukeLength );
+//                break;
+//        }
+//    }
 }

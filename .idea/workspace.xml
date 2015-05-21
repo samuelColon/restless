@@ -2,29 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d428178b-5b16-423b-8213-2d0232150e1b" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Entity/Basic_Enemy.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Entity/BasicEnemy.class" afterPath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Entity/BasicEnemy.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Entity/Bullet.class" afterPath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Entity/Bullet.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Entity/Entity.class" afterPath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Entity/Entity.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Game$1.class" afterPath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Game$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Game.class" afterPath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Util/KeyboardHandler.class" afterPath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Util/KeyboardHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Entity/Item.class" afterPath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Entity/Item.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Entity/LivingEntity.class" afterPath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Entity/LivingEntity.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Main$1.class" afterPath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Main$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Main$2.class" afterPath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Main$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Main.class" afterPath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Entity/Player.class" afterPath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Entity/Player.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Util/SoundManager$1.class" afterPath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Util/SoundManager$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Util/SoundManager.class" afterPath="$PROJECT_DIR$/out/production/restless/com/samuelColon/restless/Util/SoundManager.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/BasicEnemy.java" afterPath="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/BasicEnemy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Bullet.java" afterPath="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Bullet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Entity.java" afterPath="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Entity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/samuelColon/restless/Game.java" afterPath="$PROJECT_DIR$/src/com/samuelColon/restless/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/samuelColon/restless/Util/KeyboardHandler.java" afterPath="$PROJECT_DIR$/src/com/samuelColon/restless/Util/KeyboardHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Item.java" afterPath="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Item.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/LivingEntity.java" afterPath="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/LivingEntity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/samuelColon/restless/Main.java" afterPath="$PROJECT_DIR$/src/com/samuelColon/restless/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/samuelColon/restless/MainMenu.java" afterPath="$PROJECT_DIR$/src/com/samuelColon/restless/MainMenu.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Player.java" afterPath="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/samuelColon/restless/Util/SoundManager.java" afterPath="$PROJECT_DIR$/src/com/samuelColon/restless/Util/SoundManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/samuelColon/restless/Util/XmlParser.java" afterPath="$PROJECT_DIR$/src/com/samuelColon/restless/Util/XmlParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="restless.iws" />
@@ -53,14 +49,14 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="6.688034" vertical-offset="0" max-vertical-offset="5160">
-              <caret line="313" column="5" selection-start-line="313" selection-start-column="5" selection-end-line="313" selection-end-column="5" />
+            <state vertical-scroll-proportion="1.1351352" vertical-offset="3220" max-vertical-offset="7348">
+              <caret line="180" column="39" selection-start-line="180" selection-start-column="39" selection-end-line="180" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#initSounds#0;class#Game#0" expanded="false" />
                 <element signature="method#openInventoryScreen#0;class#Game#0" expanded="false" />
                 <element signature="method#closeInventoryScreen#0;class#Game#0" expanded="false" />
                 <element signature="method#addItem#0;class#Game#0" expanded="false" />
-                <element signature="method#gameOver#0;class#Game#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -69,58 +65,9 @@
       <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1545" max-vertical-offset="2460">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding>
-                <element signature="method#juke#0;class#Player#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BasicEnemy.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Entity/BasicEnemy.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="1530">
-              <caret line="20" column="15" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="15" />
-              <caret line="21" column="15" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="15" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1485" max-vertical-offset="2610">
+              <caret line="101" column="34" selection-start-line="101" selection-start-column="34" selection-end-line="101" selection-end-column="34" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="KeyboardHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Util/KeyboardHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="138" max-vertical-offset="870">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameCanvas.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/GameCanvas.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="675">
-              <caret line="39" column="1" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="1350">
-              <caret line="47" column="21" selection-start-line="47" selection-start-column="21" selection-end-line="47" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -135,29 +82,29 @@
       <list>
         <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Util/FrameRate.java" />
         <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Util/SaveLoad.java" />
-        <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Item.java" />
         <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Util/MouseHelper.java" />
         <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Basic_Enemy.java" />
-        <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Entity.java" />
         <option value="$PROJECT_DIR$/src/com/samuelColon/restless/InventoryPanel.java" />
         <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Inventory.java" />
         <option value="$PROJECT_DIR$/src/com/samuelColon/restless/GameCanvas.java" />
         <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Util/KeyboardHandler.java" />
-        <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Bullet.java" />
         <option value="$PROJECT_DIR$/src/com/samuelColon/restless/MainMenu.java" />
-        <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/LivingEntity.java" />
         <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Util/XmlParser.java" />
         <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Util/SoundManager.java" />
-        <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Main.java" />
         <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/BasicEnemy.java" />
+        <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Entity.java" />
+        <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/LivingEntity.java" />
+        <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Item.java" />
+        <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Main.java" />
         <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Player.java" />
+        <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Bullet.java" />
         <option value="$PROJECT_DIR$/src/com/samuelColon/restless/Game.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1280" />
-    <option name="height" value="800" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -182,6 +129,21 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="restless">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -288,21 +250,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="restless">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -558,7 +505,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -578,8 +525,8 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14297253" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42328766" sideWeight="0.49957374" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1256656" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4227723" sideWeight="0.49957374" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -620,10 +567,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#initSounds#0;class#Game#0" expanded="false" />
             <element signature="method#openInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#closeInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#addItem#0;class#Game#0" expanded="false" />
-            <element signature="method#gameOver#0;class#Game#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -632,10 +579,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="2490">
           <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#juke#0;class#Player#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -645,10 +589,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#initSounds#0;class#Game#0" expanded="false" />
             <element signature="method#openInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#closeInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#addItem#0;class#Game#0" expanded="false" />
-            <element signature="method#gameOver#0;class#Game#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -672,10 +616,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1128" max-vertical-offset="2595">
           <caret line="123" column="32" selection-start-line="123" selection-start-column="32" selection-end-line="123" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#juke#0;class#Player#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -685,10 +626,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#initSounds#0;class#Game#0" expanded="false" />
             <element signature="method#openInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#closeInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#addItem#0;class#Game#0" expanded="false" />
-            <element signature="method#gameOver#0;class#Game#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -697,10 +638,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2100" max-vertical-offset="2445">
           <caret line="148" column="0" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#juke#0;class#Player#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -717,10 +655,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#initSounds#0;class#Game#0" expanded="false" />
             <element signature="method#openInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#closeInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#addItem#0;class#Game#0" expanded="false" />
-            <element signature="method#gameOver#0;class#Game#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -729,10 +667,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2100" max-vertical-offset="2445">
           <caret line="148" column="0" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#juke#0;class#Player#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -749,10 +684,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#initSounds#0;class#Game#0" expanded="false" />
             <element signature="method#openInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#closeInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#addItem#0;class#Game#0" expanded="false" />
-            <element signature="method#gameOver#0;class#Game#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -761,10 +696,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2685" max-vertical-offset="2940">
           <caret line="181" column="0" selection-start-line="181" selection-start-column="0" selection-end-line="181" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#juke#0;class#Player#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -779,9 +711,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="198" max-vertical-offset="855">
           <caret line="50" column="5" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -789,9 +718,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="600">
           <caret line="12" column="36" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -799,9 +725,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="780">
           <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -811,10 +734,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#initSounds#0;class#Game#0" expanded="false" />
             <element signature="method#openInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#closeInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#addItem#0;class#Game#0" expanded="false" />
-            <element signature="method#gameOver#0;class#Game#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -823,9 +746,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1395">
           <caret line="63" column="42" selection-start-line="63" selection-start-column="42" selection-end-line="63" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -840,9 +760,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="780">
           <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -852,10 +769,10 @@
           <caret line="139" column="46" selection-start-line="139" selection-start-column="46" selection-end-line="139" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#initSounds#0;class#Game#0" expanded="false" />
             <element signature="method#openInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#closeInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#addItem#0;class#Game#0" expanded="false" />
-            <element signature="method#gameOver#0;class#Game#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -864,9 +781,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="1740">
           <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -881,9 +795,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -900,10 +811,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#initSounds#0;class#Game#0" expanded="false" />
             <element signature="method#openInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#closeInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#addItem#0;class#Game#0" expanded="false" />
-            <element signature="method#gameOver#0;class#Game#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -912,10 +823,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1140" max-vertical-offset="3315">
           <caret line="76" column="5" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#juke#0;class#Player#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -923,9 +831,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="765">
           <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -936,24 +841,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Item.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44182622" vertical-offset="0" max-vertical-offset="690">
-          <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/InventoryPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0456621" vertical-offset="0" max-vertical-offset="657">
           <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34246576" vertical-offset="0" max-vertical-offset="657">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -978,24 +869,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Bullet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2670">
-          <caret line="173" column="1" selection-start-line="173" selection-start-column="1" selection-end-line="173" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/MainMenu.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6196581" vertical-offset="0" max-vertical-offset="702">
           <caret line="29" column="22" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Entity/LivingEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4059829" vertical-offset="0" max-vertical-offset="702">
-          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -1024,9 +901,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8974359" vertical-offset="0" max-vertical-offset="855">
           <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1037,65 +911,81 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Entity/LivingEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="1350">
-          <caret line="47" column="21" selection-start-line="47" selection-start-column="21" selection-end-line="47" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.42735043" vertical-offset="0" max-vertical-offset="702">
+          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1923077" vertical-offset="0" max-vertical-offset="702">
+          <caret line="9" column="29" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/GameCanvas.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="675">
+        <state vertical-scroll-proportion="0.8333333" vertical-offset="0" max-vertical-offset="702">
           <caret line="39" column="1" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Util/KeyboardHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Item.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="138" max-vertical-offset="870">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
+          <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Entity/BasicEnemy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="1530">
-          <caret line="20" column="15" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="15" />
-          <caret line="21" column="15" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="15" />
+        <state vertical-scroll-proportion="0.5940171" vertical-offset="828" max-vertical-offset="1530">
+          <caret line="83" column="29" selection-start-line="83" selection-start-column="29" selection-end-line="83" selection-end-column="29" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.5598291" vertical-offset="0" max-vertical-offset="1305">
+          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Util/KeyboardHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.508547" vertical-offset="168" max-vertical-offset="870">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Bullet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36324787" vertical-offset="0" max-vertical-offset="2505">
+          <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Entity/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1545" max-vertical-offset="2460">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <element signature="method#juke#0;class#Player#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2610">
+          <caret line="101" column="34" selection-start-line="101" selection-start-column="34" selection-end-line="101" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/samuelColon/restless/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="6.688034" vertical-offset="0" max-vertical-offset="5160">
-          <caret line="313" column="5" selection-start-line="313" selection-start-column="5" selection-end-line="313" selection-end-column="5" />
+        <state vertical-scroll-proportion="1.1351352" vertical-offset="3220" max-vertical-offset="7348">
+          <caret line="180" column="39" selection-start-line="180" selection-start-column="39" selection-end-line="180" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#initSounds#0;class#Game#0" expanded="false" />
             <element signature="method#openInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#closeInventoryScreen#0;class#Game#0" expanded="false" />
             <element signature="method#addItem#0;class#Game#0" expanded="false" />
-            <element signature="method#gameOver#0;class#Game#0" expanded="false" />
           </folding>
         </state>
       </provider>

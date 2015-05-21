@@ -11,14 +11,11 @@ public class Main extends JFrame {
      * Current screen dimensions
      */
 
+    /** TODO: create window util that will set values based on screen dimensions */
     private final int GAME_WIDTH  = 600;
     private final int GAME_HEIGHT = 500;
-
-    /** TODO: create window util that will set values based on screen dimensions */
 //    private final int MENU_WIDTH;
 //    private final int MENU_HEIGHT;
-//    private final int GAME_WIDTH;
-//    private final int GAME_HEIGHT;
 
     /** so I don't have to click new game every single damn time */
     private final boolean DEBUG_MODE = false;
@@ -52,7 +49,7 @@ public class Main extends JFrame {
      * clean up resources
      */
     private static void onWindowClosing () {
-        System.exit( 0 );
+        System.exit(0);
     }
 
     /**

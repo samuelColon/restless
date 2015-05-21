@@ -29,10 +29,9 @@ public class Game extends JFrame implements Runnable {
      */
     private GameCanvas gameCanvas;
     private BufferStrategy bs;
-    /**
-     * TODO: replace with background sprite(s)
-     */
+
     private final Color backGroundColor = Color.GREEN;
+
     private FrameRate frameRate;
 
     private Thread gameThread;
@@ -49,13 +48,10 @@ public class Game extends JFrame implements Runnable {
     private Player player;
 
     /** player coordinates */
-    private int playerX = 265;
-    private int playerY = 400;
+    private double playerX = 265;
+    private double playerY = 400;
 
-    /**
-     * players current movement speed, will change once time and space gets updated
-     */
-    private final double MOVEMENT_SPEED = .085;
+    private final double PLAYERS_MOVEMENT_SPEED = .085;
 
     public final int FACING_LEFT  = 1;
     public final int FACING_UP    = 2;
@@ -65,7 +61,6 @@ public class Game extends JFrame implements Runnable {
     private ArrayList<BasicEnemy> enemies = new ArrayList<>();
     
     public Game(int gameWidth, int gameHeight) {
-
         GAME_WIDTH  = gameWidth;
         GAME_HEIGHT = gameHeight;
 
@@ -113,7 +108,7 @@ public class Game extends JFrame implements Runnable {
     }
 
     private SoundManager SmBackground;
-    public SoundManager  SmGunshot;
+    private SoundManager  SmGunshot;
 
     private void initSounds() {
         /** init background music */
@@ -183,7 +178,7 @@ public class Game extends JFrame implements Runnable {
         }
     }
 
-    public void update(double delta) {
+    private void update(double delta) {
         if (!player.isAlive()) gameOver();
 
         if (playerIsMoving) {
@@ -197,7 +192,7 @@ public class Game extends JFrame implements Runnable {
         /** did you snatch an item? */
         /** TODO: replace constants with item dimensions */
         for (Item i : temp) {
-            if ( (playerX >= i.getX()     && playerX <= i.getX() + 5) &&
+            if ((playerX >= i.getX() && playerX <= i.getX() + 5) &&
                     (playerY <= i.getY() + 5 && playerY >= i.getY()) )
             {
                 player.addItem(i);
@@ -218,26 +213,27 @@ public class Game extends JFrame implements Runnable {
      */
 
     private void movePlayer(double delta) {
-        double distance = delta * MOVEMENT_SPEED;
-        System.out.println(distance);
+//        double distance = Math.floor((delta * PLAYERS_MOVEMENT_SPEED));
+        double distance = delta * PLAYERS_MOVEMENT_SPEED;
+//        System.out.println(distance);
 
         switch(player.getDirection()) {
             case FACING_LEFT:
-                if (playerWithinBounds(playerX -= distance, playerY)) player.setX(playerX -= distance);
+                if (playerWithinBounds(playerX -= distance, playerY)) player.setX((int) (playerX -= distance));
                 break;
             case FACING_UP:
-                if (playerWithinBounds(playerX, playerY -= distance)) player.setY( playerY -= distance );
+                if (playerWithinBounds(playerX, playerY -= distance)) player.setY((int) (playerY -= distance ));
                 break;
             case FACING_RIGHT:
-                if (playerWithinBounds(playerX += distance, playerY)) player.setX(playerX += distance);
+                if (playerWithinBounds(playerX += distance, playerY)) player.setX((int) (playerX += distance));
                 break;
             case FACING_DOWN:
-                if (playerWithinBounds(playerX, playerY += distance)) player.setY(playerY += distance);
+                if (playerWithinBounds(playerX, playerY += distance)) player.setY((int) (playerY += distance));
                 break;
         }
     }
 
-    private boolean playerWithinBounds(int x, int y) {
+    private boolean playerWithinBounds(double x, double y) {
         return  (x > 0 && y > 0)
                   &&
                 (x < GAME_WIDTH && y < GAME_HEIGHT);
@@ -264,15 +260,12 @@ public class Game extends JFrame implements Runnable {
 
     /**
      * TODO: write sprite manager class and give these guys some damn textures....damnit
-     TODO: When world size is created use delta for movement
      */
     private ArrayList<Item> items = new ArrayList<>();
     private void render(Graphics g) {
-        /** background */
         g.setColor(backGroundColor);
         g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT - 1);
 
-        /** calculate and display frame rate */
         frameRate.calculate();
         g.setColor(Color.BLACK);
         g.drawString(frameRate.getFrameRate(), 540, 30);
@@ -298,8 +291,8 @@ public class Game extends JFrame implements Runnable {
     /**
      * target frames per millisecond (60 fps)
      */
-    private double targetFpms = 1000 / 60;
-
+//    private double targetFpms = 1000 / 60;
+    private double targetFpms = 16.66;
     /**
      * if rendering is ahead of schedule sleep thread, else continue
      */
@@ -326,7 +319,7 @@ public class Game extends JFrame implements Runnable {
         items.add( item );
     }
 
-    public void gameOver() {
+    private void gameOver() {
         gameRunning = false;
     }
 

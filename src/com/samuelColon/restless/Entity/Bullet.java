@@ -3,35 +3,30 @@ package com.samuelColon.restless.Entity;
 import java.awt.*;
 import java.util.ArrayList;
 
-/**
- * TODO: Remove Game engine and player reference. including game width and height.
- *      bullet class should not need to check for collision detection
- */
 public class Bullet implements Entity {
 
     /**
      * Bullet specs
      */
-    private final int BULLET_RANGE  = 196;
+    private final int BULLET_RANGE  = 186;
     private final int WIDTH;
     private final int HEIGHT;
-    private final int mBULLET_SPEED = 3;
+    private final int mBULLET_SPEED = 4;
     private int bulletStrength      = 32;
     public volatile boolean expired = false;
 
     /**
      * bullet positioning
      */
-    private int x;
-    private int y;
-    private int origin;
+    private double x;
+    private double y;
+    private double origin;
     private int delta;
 
     /**
      * misc
      */
     private Color mBulletColor = Color.BLACK;
-
 
     private final int DIRECTION_FACING;
     private final int FACING_LEFT  = 1;
@@ -45,7 +40,7 @@ public class Bullet implements Entity {
      * class receives the direction the player is currently facing
      * dimensions of bullet, origin and bullet range should be affected accordingly
      */
-    public Bullet(ArrayList<BasicEnemy> enemies, int x, int y, int directionFacing ) {
+    public Bullet(ArrayList<BasicEnemy> enemies, double x, double y, int directionFacing ) {
         this.x                = x;
         this.y                = y;
         this.DIRECTION_FACING = directionFacing;
@@ -65,11 +60,10 @@ public class Bullet implements Entity {
     @Override
     public void draw ( Graphics g ) {
         g.setColor(mBulletColor);
-        g.fillRect(x, y, WIDTH, HEIGHT);
+        g.fillRect((int)x, (int)y, WIDTH, HEIGHT);
     }
 
     /**
-     * TODO: modify so Game engine checks for collision
      * move the bullet if it has not yet expired, then check if it collided with any enemies
      * damage with @param bulletStrength
      */
@@ -137,8 +131,8 @@ public class Bullet implements Entity {
     public void checkCollision () {
         ArrayList<BasicEnemy> temp = new ArrayList<>(enemies);
         for (BasicEnemy e : temp) {
-            int x = e.getX();
-            int y = e.getY();
+            double x = e.getX();
+            double y = e.getY();
             int d = e.dimensions;
 
             if ( (this.x >= x && this.x <= x + d ) && ( this.y <= y + d && this.y >= y) ) {
@@ -148,27 +142,21 @@ public class Bullet implements Entity {
         }
     }
 
-    /** TODO: modify so Game engine chcks if within bounds */
-    public boolean withinBounds () {
-//        return ( ( x < GAME_WIDTH && x > 0 ) && ( y < GAME_HEIGHT && y > 0 ) );
-        return true;
-    }
-
     @Override
-    public int getX () {
+    public double getX () {
         return x;
     }
 
     @Override
-    public int getY () {
+    public double getY () {
         return y;
     }
 
     @Override
-    public void setY ( int y ) {
+    public void setY ( double y ) {
     }
 
     @Override
-    public void setX ( int x ) {
+    public void setX ( double x ) {
     }
 }
