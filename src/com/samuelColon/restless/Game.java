@@ -180,7 +180,7 @@ public class Game extends JFrame implements Runnable {
 
     private void update(double delta) {
         if (!player.isAlive()) gameOver();
-
+//        System.out.println( delta );
         if (playerIsMoving) {
             movePlayer(delta);
             playerX = player.getX();
@@ -214,21 +214,21 @@ public class Game extends JFrame implements Runnable {
 
     private void movePlayer(double delta) {
 //        double distance = Math.floor((delta * PLAYERS_MOVEMENT_SPEED));
-        double distance = delta * PLAYERS_MOVEMENT_SPEED;
+        double distance = Math.abs(delta * PLAYERS_MOVEMENT_SPEED);
 //        System.out.println(distance);
 
         switch(player.getDirection()) {
             case FACING_LEFT:
-                if (playerWithinBounds(playerX -= distance, playerY)) player.setX((int) (playerX -= distance));
+                if (playerWithinBounds(playerX -= distance, playerY)) player.setX(playerX -= distance);
                 break;
             case FACING_UP:
-                if (playerWithinBounds(playerX, playerY -= distance)) player.setY((int) (playerY -= distance ));
+                if (playerWithinBounds(playerX, playerY -= distance)) player.setY(playerY -= distance);
                 break;
             case FACING_RIGHT:
-                if (playerWithinBounds(playerX += distance, playerY)) player.setX((int) (playerX += distance));
+                if (playerWithinBounds(playerX += distance, playerY)) player.setX(playerX += distance);
                 break;
             case FACING_DOWN:
-                if (playerWithinBounds(playerX, playerY += distance)) player.setY((int) (playerY += distance));
+                if (playerWithinBounds(playerX, playerY += distance)) player.setY(playerY += distance);
                 break;
         }
     }

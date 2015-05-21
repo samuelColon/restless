@@ -60,7 +60,6 @@ public class Player implements LivingEntity{
         this.x = x;
         this.y = y;
 
-        /** init inventory system */
         inventory = new Inventory();
     }
 
@@ -128,7 +127,7 @@ public class Player implements LivingEntity{
     public void setX(double x) {
         double temp = this.x;
         this.x = x;
-        System.out.println("Moved " + Math.abs(temp - this.x));
+//        System.out.println("Moved " + (temp - this.x));
     }
 
     public double getY() {
@@ -138,7 +137,7 @@ public class Player implements LivingEntity{
     public void setY(double y) {
         double temp = this.y;
         this.y = y;
-        System.out.println("Moved " + Math.abs(temp - this.y));
+//        System.out.println("Moved " + Math.abs(temp - this.y));
     }
 
     public void setDirection(int directionFacing) {
