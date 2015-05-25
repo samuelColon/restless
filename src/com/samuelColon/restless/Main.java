@@ -1,5 +1,7 @@
 package com.samuelColon.restless;
 
+import com.samuelColon.restless.Util.Window;
+
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -11,26 +13,26 @@ public class Main extends JFrame {
      * Current screen dimensions
      */
 
-    /** TODO: create window util that will set values based on screen dimensions */
     private final int GAME_WIDTH  = 600;
     private final int GAME_HEIGHT = 500;
-//    private final int MENU_WIDTH;
-//    private final int MENU_HEIGHT;
+
+    private final int MENU_WIDTH;
+    private final int MENU_HEIGHT;
 
     /** so I don't have to click new game every single damn time */
     private final boolean DEBUG_MODE = false;
 
     public Main() {
-        /** init window util
-         *  this GAME_WIDTH = screen.getWidth();
-         * */
+        Window.init();
+        MENU_WIDTH  = (int) (Window.getScreenWidth() / 2);
+        MENU_HEIGHT = (int) (Window.getScreenHeight() / 2);
     }
 
     private void createAndShowGui() {
-        setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
+        setPreferredSize(new Dimension(MENU_WIDTH, MENU_HEIGHT));
         setTitle("Restless");
         setLayout(new GridLayout(1, 1));
-        setLocation( 0 - GAME_WIDTH / 2, 0 - GAME_HEIGHT / 2 );
+        setLocation( 0 - MENU_WIDTH / 2, 0 - MENU_HEIGHT / 2 );
         setIgnoreRepaint(true);
 
         if (DEBUG_MODE) {

@@ -8,7 +8,7 @@ public class Bullet implements Entity {
     /**
      * Bullet specs
      */
-    private final int BULLET_RANGE  = 186;
+    private final int BULLET_RANGE  = 160;
     private final int WIDTH;
     private final int HEIGHT;
     private final int mBULLET_SPEED = 4;
@@ -48,12 +48,12 @@ public class Bullet implements Entity {
 
         if (directionFacing == FACING_LEFT || directionFacing == FACING_RIGHT) {
             origin = x;
-            WIDTH  = 6;
-            HEIGHT = 2;
+            WIDTH  = 5;
+            HEIGHT = 1;
         } else {
             origin = y;
-            WIDTH  = 2;
-            HEIGHT = 6;
+            WIDTH  = 1;
+            HEIGHT = 5;
         }
     }
 

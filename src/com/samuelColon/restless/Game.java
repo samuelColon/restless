@@ -52,7 +52,7 @@ public class Game extends JFrame implements Runnable {
     private double playerX = 265;
     private double playerY = 400;
 
-    private final double PLAYERS_MOVEMENT_SPEED = .070;
+    private final double PLAYERS_MOVEMENT_SPEED = .050;
 
     public final int FACING_LEFT  = 1;
     public final int FACING_UP    = 2;
@@ -320,7 +320,7 @@ public class Game extends JFrame implements Runnable {
     }
 
     public void addItem(Item item) {
-        itemsOnMap.add( item );
+        itemsOnMap.add(item);
     }
 
     private void gameOver() {
