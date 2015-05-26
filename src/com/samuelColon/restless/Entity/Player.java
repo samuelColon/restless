@@ -2,7 +2,6 @@ package com.samuelColon.restless.Entity;
 
 import java.awt.Graphics;
 import java.awt.Color;
-import java.util.ArrayList;
 
 public class Player implements LivingEntity{
 
@@ -31,18 +30,11 @@ public class Player implements LivingEntity{
     private int hbWidth = 200;
     private int hbHeight = 10;
 
-
     /**
      * shooting
      */
-    private long timeSinceLastShot       = 0;
-    private ArrayList<Bullet> shotsFired = new ArrayList<>();
-
-    /** TODO: once xml utility is complete. Create a way to switch a users weapon */
-/*  shot interval bullet strength, and bullet speed and range will all be upgradable */
-    private enum currentWeapon{}
-    private int shotInterval   = 300;
-    private int bulletStrength = 50;
+    private long timeSinceLastShot = 0;
+    private int shotInterval       = 400;
 
     /**
      * The current direction the player is facing
@@ -66,9 +58,8 @@ public class Player implements LivingEntity{
         inventory = new Inventory();
     }
 
-    public boolean shoot(ArrayList<BasicEnemy> enemies) {
+    public boolean shoot() {
         if (timeSinceLastShot + shotInterval < System.currentTimeMillis()) {
-//            shotsFired.add(new Bullet(enemies, x, y, directionFacing));
             timeSinceLastShot = System.currentTimeMillis();
             return true;
         }
@@ -83,24 +74,7 @@ public class Player implements LivingEntity{
         /** draw health bar */
         g.fillRect(hx, hy, hbWidth , hbHeight);
         g.setColor(Color.RED);
-//        g.fillRect(hx, hy, (mCurrentHealth / mMaxHealth) * 100, hbHeight);
         g.fillRect(hx, hy, mCurrentHealth , hbHeight);
-
-
-        /** draw bullets */
-//        ArrayList<Bullet> temp = new ArrayList<>(shotsFired);
-
-//        for ( Bullet b : temp ) {
-//            double bX = b.getX();
-//            double bY = b.getY();
-//            if ((bX > 0 && bY > 0 && bX < 600 && bY < 500)
-//                    && !b.expired) {
-//                b.draw(g);
-//                b.move();
-//            } else {
-//                shotsFired.remove(b);
-//            }
-//        }
     }
 
     public void gainExp(int exp) {
@@ -112,7 +86,7 @@ public class Player implements LivingEntity{
      */
     public boolean addItem(Item i) {
         inventory.addItem(i);
-        mCurrentHealth += 25;
+        mCurrentHealth += 25; // just for funzies
         return true;
     }
 

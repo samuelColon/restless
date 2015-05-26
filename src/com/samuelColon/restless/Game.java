@@ -165,7 +165,7 @@ public class Game extends JFrame implements Runnable {
         keyHandler.poll();
 
         if(keyHandler.keyDownOnce(KeyEvent.VK_SPACE)) {
-            if(player.shoot( currentEnemies )) {
+            if(player.shoot()) {
                 SmGunshot.play();
                 currentBullets.add(new Bullet(playerX, playerY, player.getDirection()));
             }
@@ -201,7 +201,7 @@ public class Game extends JFrame implements Runnable {
             if (b.expired)
                 currentBullets.remove(b);
 
-            b.move();
+            b.move(delta);
 
             if ( bulletCollision( b ))
                 b.expired = true;

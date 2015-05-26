@@ -2,17 +2,21 @@ package com.samuelColon.restless.Entity;
 
 import java.awt.*;
 
+/**
+ * class receives the direction the player is currently facing
+ * dimensions of bullet, origin and bullet range should be affected accordingly
+ */
 public class Bullet implements Entity {
 
     /**
      * Bullet specs
      */
-    private final int BULLET_RANGE  = 160;
+    private final int BULLET_RANGE = 160;
     private final int WIDTH;
     private final int HEIGHT;
-    private final int mBULLET_SPEED = 4;
-    public int bulletStrength       = 32;
-    public volatile boolean expired = false;
+    private final double BULLET_SPEED = .5;
+    public int bulletStrength         = 32;
+    public volatile boolean expired   = false;
 
     /**
      * bullet positioning
@@ -20,12 +24,7 @@ public class Bullet implements Entity {
     private double x;
     private double y;
     private double origin;
-    private int delta;
-
-    /**
-     * misc
-     */
-    private Color mBulletColor = Color.BLACK;
+    private double moveDistance;
 
     private final int DIRECTION_FACING;
     private final int FACING_LEFT  = 1;
@@ -34,9 +33,10 @@ public class Bullet implements Entity {
     private final int FACING_DOWN  = 4;
 
     /**
-     * class receives the direction the player is currently facing
-     * dimensions of bullet, origin and bullet range should be affected accordingly
+     * misc
      */
+    private Color mBulletColor = Color.BLACK;
+
     public Bullet(double x, double y, int directionFacing ) {
         this.x                = x;
         this.y                = y;
@@ -54,12 +54,14 @@ public class Bullet implements Entity {
     }
 
     @Override
-    public void draw ( Graphics g ) {
+    public void draw(Graphics g) {
         g.setColor(mBulletColor);
         g.fillRect((int)x, (int)y, WIDTH, HEIGHT);
     }
 
-    public void move () {
+    public void move(double delta) {
+        moveDistance = BULLET_SPEED * delta;
+
         switch (DIRECTION_FACING) {
             case FACING_LEFT:
                 moveLeft();
@@ -84,17 +86,17 @@ public class Bullet implements Entity {
      * down y + bullet speed
      * left x - bullet speed
      */
-    public void moveUp () {
+    public void moveUp() {
         if (origin - y < BULLET_RANGE) {
-            y -= mBULLET_SPEED;
+            y -= moveDistance;
         } else {
             expired = true;
         }
     }
 
-    public void moveRight () {
+    public void moveRight() {
         if (x - origin < BULLET_RANGE) {
-            x += mBULLET_SPEED;
+            x += moveDistance;
         } else {
             expired = true;
         }
@@ -102,7 +104,7 @@ public class Bullet implements Entity {
 
     public void moveDown() {
         if (y < BULLET_RANGE + origin) {
-            y += mBULLET_SPEED;
+            y += moveDistance;
         } else {
             expired = true;
         }
@@ -110,27 +112,27 @@ public class Bullet implements Entity {
 
     public void moveLeft() {
         if (x > origin - BULLET_RANGE) {
-            x -= mBULLET_SPEED;
+            x -= moveDistance;
         } else {
             expired = true;
         }
     }
 
     @Override
-    public double getX () {
+    public double getX() {
         return x;
     }
 
     @Override
-    public double getY () {
+    public double getY() {
         return y;
     }
 
     @Override
-    public void setY ( double y ) {
+    public void setY(double y) {
     }
 
     @Override
-    public void setX ( double x ) {
+    public void setX(double x) {
     }
 }
