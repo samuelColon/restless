@@ -15,10 +15,10 @@ public class Player implements LivingEntity{
     /**
      * player stats
      */
-    private int mMaxHealth     = 200;
-    private int mCurrentHealth = 150;
-    private int mArmor         = 2;
-    private int mExp           = 0;
+    private double mMaxHealth     = 500;
+    private double mCurrentHealth = 450;
+    private int mArmor            = 2;
+    private int mExp              = 0;
 
     /**
      * Health bar components
@@ -27,8 +27,10 @@ public class Player implements LivingEntity{
     private int hx = 15;
     private int hy = 15;
     // dimensions
-    private int hbWidth = 200;
+    private int hbWidth  = 200;
     private int hbHeight = 10;
+    // health percentage (for drawing)
+    private double percentage;
 
     /**
      * shooting
@@ -55,7 +57,8 @@ public class Player implements LivingEntity{
         this.x = x;
         this.y = y;
 
-        inventory = new Inventory();
+        percentage = mCurrentHealth / mMaxHealth;
+        inventory  = new Inventory();
     }
 
     public boolean shoot() {
@@ -74,7 +77,7 @@ public class Player implements LivingEntity{
         /** draw health bar */
         g.fillRect(hx, hy, hbWidth , hbHeight);
         g.setColor(Color.RED);
-        g.fillRect(hx, hy, mCurrentHealth , hbHeight);
+        g.fillRect(hx, hy, (int)(hbWidth * percentage), hbHeight);
     }
 
     public void gainExp(int exp) {
@@ -91,11 +94,12 @@ public class Player implements LivingEntity{
     }
 
     public int getHealth() {
-        return mCurrentHealth;
+        return (int)mCurrentHealth;
     }
 
     public void setHealth(int health) {
         mCurrentHealth = health;
+        percentage     = mCurrentHealth / mMaxHealth;
     }
 
     public boolean isAlive() { return mCurrentHealth > 0; }

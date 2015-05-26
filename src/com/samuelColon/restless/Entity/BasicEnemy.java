@@ -8,49 +8,46 @@ import java.awt.*;
  */
 
 public class BasicEnemy implements LivingEntity {
-
-    private int maxHealth     = 200;
-    private int currentHealth = maxHealth;
-    private int hx;
-    private int hy;
-
+    /** Enemy stats*/
+    private double maxHealth     = 200;
+    private double currentHealth = maxHealth;
     private double x         = 250;
     private double y         = 250;
     public int dimensions = 20;
     private int exp       = 20; // experience player will gain by killing this particular enemy
+
+    /** healthbar components */
+    private int hx;
+    private int hy;
+    private int hbWidth  = 30;
+    private int hbHeight = 4;
+    private double percentage;
 
     /**
      * used to show when the enemy is hit by a projectile
      */
     private volatile Color currentColor = Color.red;
 
-    /**
-     * misc
-     */
-
     public BasicEnemy(int x, int y) {
         this.x = x;
-        this.y =y;
-        hx = x;
-        hy = y;
+        this.y = y;
+        hx     = x;
+        hy     = y - 10;
+        percentage = currentHealth / maxHealth;
     }
 
     public boolean isAlive() { return currentHealth > 0; }
 
-    /**
-     * draw enemy health bar
-     */
     @Override
     public void draw(Graphics g) {
         g.setColor(currentColor);
         g.fillRect((int)x, (int)y, dimensions, dimensions);
 
-        /** draw enemy maxHealth bar */
+        /** draw health bar */
         g.setColor(Color.black);
-        g.fillRect((int)x - 4, (int)(y - 15), maxHealth / 10, 5);
-
-        g.setColor(Color.red);
-        g.fillRect((int)x - 4, (int)(y - 15), currentHealth / 10, 5);
+        g.fillRect(hx, hy, hbWidth , hbHeight);
+        g.setColor(Color.RED);
+        g.fillRect(hx, hy, (int)(hbWidth * percentage), hbHeight);
 
         /** set the enemy color back to the original red */
         if (currentColor != Color.RED) currentColor = Color.RED;
@@ -62,14 +59,13 @@ public class BasicEnemy implements LivingEntity {
 
     public boolean hasItem() { return true; }
 
-    @Override
     public int getHealth() {
-        return currentHealth;
+        return (int) currentHealth;
     }
 
-    @Override
     public void setHealth(int damage) {
         currentHealth -= damage;
+        percentage = currentHealth / maxHealth;
         currentColor = Color.white;
     }
 

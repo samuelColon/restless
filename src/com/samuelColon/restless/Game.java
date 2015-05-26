@@ -32,7 +32,6 @@ public class Game extends JFrame implements Runnable {
     private BufferStrategy bs;
 
     private final Color backGroundColor = Color.GREEN;
-
     private FrameRate frameRate;
 
     private Thread gameThread;
@@ -95,9 +94,8 @@ public class Game extends JFrame implements Runnable {
 //        setCursor(getToolkit().createCustomCursor(
 //                new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "null") );
 
-        /** Note: this will replaced when Xml utility is complete */
         /** init player */
-        player = new Player( playerX, playerY );
+        player = new Player(playerX, playerY);
 
         currentBullets = new ArrayList<>();
 
