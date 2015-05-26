@@ -52,7 +52,7 @@ public class Game extends JFrame implements Runnable {
     private double playerX = 265;
     private double playerY = 400;
 
-    private final double PLAYERS_MOVEMENT_SPEED = .1; // for debug .1 otherwise .05
+    private final double PLAYERS_MOVEMENT_SPEED = .11;
 
     public final int FACING_LEFT  = 1;
     public final int FACING_UP    = 2;
@@ -214,7 +214,9 @@ public class Game extends JFrame implements Runnable {
             currentEnemies.add(new BasicEnemy(getRandomX(), getRandomY()));
         } else {
             for ( BasicEnemy e : enemies ) {
-                if ( ! e.isAlive() ) {
+                if ( e.isAlive() ) {
+                    e.move(playerX, playerY, delta);
+                } else {
                     if ( e.hasItem() ) {
                         itemsOnMap.add( e.getItem() );
                         currentEnemies.remove( e );

@@ -36,7 +36,7 @@ public class Player implements LivingEntity{
      * shooting
      */
     private long timeSinceLastShot = 0;
-    private int shotInterval       = 400;
+    private int shotInterval       = 380;
 
     /**
      * The current direction the player is facing

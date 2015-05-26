@@ -11,7 +11,7 @@ public class Bullet implements Entity {
     /**
      * Bullet specs
      */
-    private final int BULLET_RANGE = 160;
+    private final int BULLET_RANGE = 170;
     private final int WIDTH;
     private final int HEIGHT;
     private final double BULLET_SPEED = .5;
