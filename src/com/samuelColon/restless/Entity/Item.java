@@ -20,7 +20,7 @@ public class Item implements Entity {
     @Override
     public void draw ( Graphics g ) {
         g.setColor( Color.blue );
-        g.fillRect( 250, 250, 5, 5 );
+        g.fillRect( (int)x, (int)y, 5, 5 );
     }
 
     @Override

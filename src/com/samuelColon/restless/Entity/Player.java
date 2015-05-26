@@ -90,6 +90,7 @@ public class Player implements LivingEntity{
     public boolean addItem(Item i) {
         inventory.addItem(i);
         mCurrentHealth += 25; // just for funzies
+        percentage     = mCurrentHealth / mMaxHealth;
         return true;
     }
 

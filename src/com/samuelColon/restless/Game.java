@@ -16,6 +16,7 @@ import java.awt.image.BufferStrategy;
 import java.io.File;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class Game extends JFrame implements Runnable {
@@ -31,7 +32,7 @@ public class Game extends JFrame implements Runnable {
     private GameCanvas gameCanvas;
     private BufferStrategy bs;
 
-    private final Color backGroundColor = Color.GREEN;
+    private final Color backGroundColor = Color.LIGHT_GRAY;
     private FrameRate frameRate;
 
     private Thread gameThread;
@@ -51,7 +52,7 @@ public class Game extends JFrame implements Runnable {
     private double playerX = 265;
     private double playerY = 400;
 
-    private final double PLAYERS_MOVEMENT_SPEED = .050;
+    private final double PLAYERS_MOVEMENT_SPEED = .1; // for debug .1 otherwise .05
 
     public final int FACING_LEFT  = 1;
     public final int FACING_UP    = 2;
@@ -101,7 +102,7 @@ public class Game extends JFrame implements Runnable {
 
         /** init currentEnemies */
         currentEnemies = new ArrayList<>();
-        currentEnemies.add( new BasicEnemy( 250, 250 ) );
+        currentEnemies.add( new BasicEnemy(250, 250));
 
         initSounds();
 
@@ -122,6 +123,7 @@ public class Game extends JFrame implements Runnable {
 
     private volatile boolean gameRunning;
     private volatile boolean gamePaused;
+    private Random rand;
 
     @Override
     public void run() {
@@ -133,6 +135,8 @@ public class Game extends JFrame implements Runnable {
         long curTime  = System.nanoTime();
         long lastTime = curTime;
         double nsPerFrame;
+
+        rand = new Random();
 
 //        SmBackground.play();
 
@@ -206,11 +210,15 @@ public class Game extends JFrame implements Runnable {
         }
 
         ArrayList<BasicEnemy> enemies = new ArrayList<>( currentEnemies );
-        for( BasicEnemy e: enemies ) {
-            if(!e.isAlive()) {
-                if ( e.hasItem() ) {
-                    itemsOnMap.add( e.getItem() );
-                    currentEnemies.remove( e );
+        if (enemies.size() == 0) {
+            currentEnemies.add(new BasicEnemy(getRandomX(), getRandomY()));
+        } else {
+            for ( BasicEnemy e : enemies ) {
+                if ( ! e.isAlive() ) {
+                    if ( e.hasItem() ) {
+                        itemsOnMap.add( e.getItem() );
+                        currentEnemies.remove( e );
+                    }
                 }
             }
         }
@@ -292,9 +300,9 @@ public class Game extends JFrame implements Runnable {
             b.draw(g);
         }
 
-        ArrayList<Item> temp2 = new ArrayList<>(itemsOnMap);
-        for(Item invn: temp2) {
-            invn.draw(g);
+        ArrayList<Item> items = new ArrayList<>(itemsOnMap);
+        for(Item i: items) {
+            i.draw(g);
         }
     }
 
@@ -346,6 +354,14 @@ public class Game extends JFrame implements Runnable {
 
     public void addItem(Item item) {
         itemsOnMap.add(item);
+    }
+
+    private int getRandomX() {
+        return rand.nextInt(GAME_WIDTH);
+    }
+
+    private int getRandomY() {
+        return rand.nextInt(GAME_HEIGHT);
     }
 
     private void gameOver() {
