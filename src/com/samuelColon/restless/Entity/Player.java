@@ -24,8 +24,13 @@ public class Player implements LivingEntity{
     /**
      * Health bar components
      */
+    // positioning
     private int hx = 15;
     private int hy = 15;
+    // dimensions
+    private int hbWidth = 200;
+    private int hbHeight = 10;
+
 
     /**
      * shooting
@@ -63,7 +68,7 @@ public class Player implements LivingEntity{
 
     public boolean shoot(ArrayList<BasicEnemy> enemies) {
         if (timeSinceLastShot + shotInterval < System.currentTimeMillis()) {
-            shotsFired.add(new Bullet(enemies, x, y, directionFacing));
+//            shotsFired.add(new Bullet(enemies, x, y, directionFacing));
             timeSinceLastShot = System.currentTimeMillis();
             return true;
         }
@@ -76,24 +81,26 @@ public class Player implements LivingEntity{
         g.fillRect((int)x, (int)y, BLOCK_SIZE, BLOCK_SIZE);
 
         /** draw health bar */
-        g.fillRect(hx, hy, mMaxHealth / 4, 10);
+        g.fillRect(hx, hy, hbWidth , hbHeight);
         g.setColor(Color.RED);
-        g.fillRect(hx, hy, mCurrentHealth / 4, 10);
+//        g.fillRect(hx, hy, (mCurrentHealth / mMaxHealth) * 100, hbHeight);
+        g.fillRect(hx, hy, mCurrentHealth , hbHeight);
+
 
         /** draw bullets */
-        ArrayList<Bullet> temp = new ArrayList<>(shotsFired);
+//        ArrayList<Bullet> temp = new ArrayList<>(shotsFired);
 
-        for ( Bullet b : temp ) {
-            double bX = b.getX();
-            double bY = b.getY();
-            if ((bX > 0 && bY > 0 && bX < 600 && bY < 500)
-                    && !b.expired) {
-                b.draw(g);
-                b.move();
-            } else {
-                shotsFired.remove(b);
-            }
-        }
+//        for ( Bullet b : temp ) {
+//            double bX = b.getX();
+//            double bY = b.getY();
+//            if ((bX > 0 && bY > 0 && bX < 600 && bY < 500)
+//                    && !b.expired) {
+//                b.draw(g);
+//                b.move();
+//            } else {
+//                shotsFired.remove(b);
+//            }
+//        }
     }
 
     public void gainExp(int exp) {
@@ -105,6 +112,7 @@ public class Player implements LivingEntity{
      */
     public boolean addItem(Item i) {
         inventory.addItem(i);
+        mCurrentHealth += 25;
         return true;
     }
 

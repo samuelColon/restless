@@ -1,6 +1,7 @@
 package com.samuelColon.restless;
 
 import com.samuelColon.restless.Entity.BasicEnemy;
+import com.samuelColon.restless.Entity.Bullet;
 import com.samuelColon.restless.Entity.Item;
 import com.samuelColon.restless.Entity.Player;
 import com.samuelColon.restless.Util.FrameRate;
@@ -12,7 +13,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.*;
 import java.util.ArrayList;
@@ -59,8 +59,9 @@ public class Game extends JFrame implements Runnable {
     public final int FACING_RIGHT = 3;
     public final int FACING_DOWN  = 4;
 
-    private ArrayList<BasicEnemy> enemies;
-    
+    private ArrayList<BasicEnemy> currentEnemies;
+    private ArrayList<Bullet> currentBullets;
+
     public Game(int gameWidth, int gameHeight) {
         GAME_WIDTH  = gameWidth;
         GAME_HEIGHT = gameHeight;
@@ -91,16 +92,18 @@ public class Game extends JFrame implements Runnable {
         addKeyListener(keyHandler);
 
         /** Hide that hideous mouse when we're playing! */
-        setCursor(getToolkit().createCustomCursor(
-                new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "null") );
+//        setCursor(getToolkit().createCustomCursor(
+//                new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "null") );
 
         /** Note: this will replaced when Xml utility is complete */
         /** init player */
         player = new Player( playerX, playerY );
 
-        /** init enemies */
-        enemies = new ArrayList<>();
-        enemies.add(new BasicEnemy(250, 250));
+        currentBullets = new ArrayList<>();
+
+        /** init currentEnemies */
+        currentEnemies = new ArrayList<>();
+        currentEnemies.add( new BasicEnemy( 250, 250 ) );
 
         initSounds();
 
@@ -162,8 +165,9 @@ public class Game extends JFrame implements Runnable {
         keyHandler.poll();
 
         if(keyHandler.keyDownOnce(KeyEvent.VK_SPACE)) {
-            if(player.shoot(enemies)) {
+            if(player.shoot( currentEnemies )) {
                 SmGunshot.play();
+                currentBullets.add(new Bullet(playerX, playerY, player.getDirection()));
             }
         }
         if(keyHandler.keyDown(KeyEvent.VK_LEFT)) {
@@ -192,11 +196,29 @@ public class Game extends JFrame implements Runnable {
             playerY = player.getY();
         }
 
-        ArrayList<Item> temp = new ArrayList<>( itemsOnMap );
+        ArrayList<Bullet> bullets = new ArrayList<>(currentBullets);
+        for (Bullet b: bullets) {
+            if (b.expired)
+                currentBullets.remove(b);
 
-        /** did you snatch an item? */
-        /** TODO: replace constants with item dimensions */
-        for (Item i : temp) {
+            b.move();
+
+            if ( bulletCollision( b ))
+                b.expired = true;
+        }
+
+        ArrayList<BasicEnemy> enemies = new ArrayList<>( currentEnemies );
+        for( BasicEnemy e: enemies ) {
+            if(!e.isAlive()) {
+                if ( e.hasItem() ) {
+                    itemsOnMap.add( e.getItem() );
+                    currentEnemies.remove( e );
+                }
+            }
+        }
+
+        ArrayList<Item> items = new ArrayList<>( itemsOnMap );
+        for (Item i : items) {
             if ((playerX >= i.getX() && playerX <= i.getX() + 5) &&
                     (playerY <= i.getY() + 5 && playerY >= i.getY()) )
             {
@@ -205,17 +227,6 @@ public class Game extends JFrame implements Runnable {
             }
         }
     }
-
-    /** player movement is now based off how much time has passed between frames
-     *   however for some reason moving up and to the left is faster than moving down or to the right.
-     *     maybe being rounded up and down respectively. Please investigate.
-     *
-     *            - ~
-     *           (o.0)
-     *              `p   <- * Sherlocks pipe *
-     *
-     *  May 14th, 2015
-     */
 
     private void movePlayer(double delta) {
         double distance = delta * PLAYERS_MOVEMENT_SPEED;
@@ -260,9 +271,8 @@ public class Game extends JFrame implements Runnable {
         } while(bs.contentsLost());
     }
 
-    /**
-     * TODO: write sprite manager class and give these guys some damn textures....damnit
-     */
+    /** drawing is done based on a copy of each array
+     *  to avoid a Concurrent Modification Exception */
     private ArrayList<Item> itemsOnMap = new ArrayList<>();
     private void render(Graphics g) {
         g.setColor(backGroundColor);
@@ -274,23 +284,40 @@ public class Game extends JFrame implements Runnable {
 
         player.draw(g);
 
-
-        /** drawing is done based on a copy of each array
-         *  to avoid a Concurrent Modification Exception */
-        ArrayList<BasicEnemy> temp1 = new ArrayList<>(enemies);
-        for( BasicEnemy e: temp1 ) {
-            if(e.isAlive()) {
-                e.draw(g);
-            } else {
-                if (e.hasItem()) itemsOnMap.add(e.getItem());
-                enemies.remove(e);
-            }
+        ArrayList<BasicEnemy> enemies = new ArrayList<>( currentEnemies );
+        for( BasicEnemy e: enemies ) {
+            e.draw(g);
         }
 
-        ArrayList<Item> temp2 = new ArrayList<>( itemsOnMap );
+        ArrayList<Bullet> bullets = new ArrayList<>(currentBullets);
+        for(Bullet b: bullets) {
+            b.draw(g);
+        }
+
+        ArrayList<Item> temp2 = new ArrayList<>(itemsOnMap);
         for(Item invn: temp2) {
             invn.draw(g);
         }
+    }
+
+    private boolean bulletCollision ( Bullet b ) {
+        double bx = b.getX();
+        double by = b.getY();
+        ArrayList<BasicEnemy> enemies = new ArrayList<>(currentEnemies);
+
+        for(BasicEnemy e: enemies) {
+            double ex = e.getX();
+            double ey = e.getY();
+            double d = e.dimensions;
+
+            if ( (bx >= ex && bx <= ex + d ) &&
+                    ( by <= ey + d && by >= ey) ) {
+                e.setHealth(b.bulletStrength);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
