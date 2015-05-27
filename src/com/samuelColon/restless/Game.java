@@ -138,7 +138,7 @@ public class Game extends JFrame implements Runnable {
 
         rand = new Random();
 
-//        SmBackground.play();
+        SmBackground.play();
 
         while( gameRunning ) {
             if( !gamePaused ) {
@@ -190,6 +190,7 @@ public class Game extends JFrame implements Runnable {
         }
     }
 
+    private volatile int enemyLimit = 1;
     private void update(double delta) {
         if (!player.isAlive()) gameOver();
         if (playerIsMoving) {
@@ -205,12 +206,12 @@ public class Game extends JFrame implements Runnable {
 
             b.move(delta);
 
-            if ( bulletCollision( b ))
+            if (bulletCollision( b ))
                 b.expired = true;
         }
 
         ArrayList<BasicEnemy> enemies = new ArrayList<>( currentEnemies );
-        if (enemies.size() == 0) {
+        if (enemies.size() < enemyLimit) {
             currentEnemies.add(new BasicEnemy(getRandomX(), getRandomY()));
         } else {
             for ( BasicEnemy e : enemies ) {
@@ -220,6 +221,7 @@ public class Game extends JFrame implements Runnable {
                     if ( e.hasItem() ) {
                         itemsOnMap.add( e.getItem() );
                         currentEnemies.remove( e );
+                        enemyLimit++;
                     }
                 }
             }
@@ -308,7 +310,7 @@ public class Game extends JFrame implements Runnable {
         }
     }
 
-    private boolean bulletCollision ( Bullet b ) {
+    private boolean bulletCollision(Bullet b) {
         double bx = b.getX();
         double by = b.getY();
         ArrayList<BasicEnemy> enemies = new ArrayList<>(currentEnemies);
@@ -316,7 +318,7 @@ public class Game extends JFrame implements Runnable {
         for(BasicEnemy e: enemies) {
             double ex = e.getX();
             double ey = e.getY();
-            double d = e.dimensions;
+            double d  = e.dimensions;
 
             if ( (bx >= ex && bx <= ex + d ) &&
                     ( by <= ey + d && by >= ey) ) {
