@@ -1,10 +1,12 @@
 package com.samuelColon.restless.Util;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
 
-/** will probably only use this class for the inventory panel */
+/**
+ * will probably only use this class for the inventory panel
+ */
 public class MouseHelper implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final int BUTTON_COUNT = 3;
 
@@ -20,36 +22,36 @@ public class MouseHelper implements MouseListener, MouseMotionListener, MouseWhe
     private Component component;
     private boolean relative;
 
-    public MouseHelper ( Canvas canvas ) {
+    public MouseHelper (Canvas canvas) {
         try {
             robot = new Robot();
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        mousePos = new Point( 0, 0 );
-        currentPos = new Point( 0, 0 );
-        mouse = new boolean[ BUTTON_COUNT ];
-        polled = new int[ BUTTON_COUNT ];
+        mousePos = new Point(0, 0);
+        currentPos = new Point(0, 0);
+        mouse = new boolean[BUTTON_COUNT];
+        polled = new int[BUTTON_COUNT];
     }
 
     public synchronized void poll () {
 
-        if ( isRelative() ) {
-            mousePos = new Point( dx, dy );
+        if (isRelative()) {
+            mousePos = new Point(dx, dy);
         } else {
-            mousePos = new Point( currentPos );
+            mousePos = new Point(currentPos);
         }
         dx = dy = 0;
 
         polledNotches = notches;
         notches = 0;
 
-        for ( int i = 0; i < mouse.length; ++ i ) {
-            if ( mouse[ i ] ) {
-                polled[ i ]++;
+        for (int i = 0; i < mouse.length; ++ i) {
+            if (mouse[i]) {
+                polled[i]++;
             } else {
-                polled[ i ] = 0;
+                polled[i] = 0;
             }
         }
     }
@@ -58,9 +60,9 @@ public class MouseHelper implements MouseListener, MouseMotionListener, MouseWhe
         return relative;
     }
 
-    public void setRelative ( boolean relative ) {
+    public void setRelative (boolean relative) {
         this.relative = relative;
-        if ( relative ) {
+        if (relative) {
             centerMouse();
         }
     }
@@ -73,52 +75,52 @@ public class MouseHelper implements MouseListener, MouseMotionListener, MouseWhe
         return polledNotches;
     }
 
-    public boolean buttonDown ( int button ) {
-        return polled[ button - 1 ] > 0;
+    public boolean buttonDown (int button) {
+        return polled[button - 1] > 0;
     }
 
-    public boolean buttonDownOnce ( int button ) {
-        return polled[ button - 1 ] == 1;
-    }
-
-    @Override
-    public void mouseClicked ( MouseEvent e ) {
+    public boolean buttonDownOnce (int button) {
+        return polled[button - 1] == 1;
     }
 
     @Override
-    public synchronized void mousePressed ( MouseEvent e ) {
+    public void mouseClicked (MouseEvent e) {
+    }
+
+    @Override
+    public synchronized void mousePressed (MouseEvent e) {
         int button = e.getButton() - 1;
-        if ( button >= 0 && button < mouse.length ) {
-            mouse[ button ] = true;
+        if (button >= 0 && button < mouse.length) {
+            mouse[button] = true;
         }
     }
 
     @Override
-    public synchronized void mouseReleased ( MouseEvent e ) {
+    public synchronized void mouseReleased (MouseEvent e) {
         int button = e.getButton() - 1;
-        if ( button >= 0 && button < mouse.length ) {
-            mouse[ button ] = false;
+        if (button >= 0 && button < mouse.length) {
+            mouse[button] = false;
         }
     }
 
     @Override
-    public synchronized void mouseEntered ( MouseEvent e ) {
-        mouseMoved( e );
+    public synchronized void mouseEntered (MouseEvent e) {
+        mouseMoved(e);
     }
 
     @Override
-    public synchronized void mouseExited ( MouseEvent e ) {
-        mouseMoved( e );
+    public synchronized void mouseExited (MouseEvent e) {
+        mouseMoved(e);
     }
 
     @Override
-    public synchronized void mouseDragged ( MouseEvent e ) {
-        mouseMoved( e );
+    public synchronized void mouseDragged (MouseEvent e) {
+        mouseMoved(e);
     }
 
     @Override
-    public synchronized void mouseMoved ( MouseEvent e ) {
-        if ( isRelative() ) {
+    public synchronized void mouseMoved (MouseEvent e) {
+        if (isRelative()) {
             Point p = e.getPoint();
             Point center = getComponentCenter();
             dx += p.x - center.x;
@@ -130,7 +132,7 @@ public class MouseHelper implements MouseListener, MouseMotionListener, MouseWhe
     }
 
     @Override
-    public synchronized void mouseWheelMoved ( MouseWheelEvent e ) {
+    public synchronized void mouseWheelMoved (MouseWheelEvent e) {
         notches += e.getWheelRotation();
     }
 
@@ -138,14 +140,14 @@ public class MouseHelper implements MouseListener, MouseMotionListener, MouseWhe
         int w = component.getWidth();
         int h = component.getHeight();
 
-        return new Point( w / 2, h / 2 );
+        return new Point(w / 2, h / 2);
     }
 
     private void centerMouse () {
-        if ( robot != null && component.isShowing() ) {
+        if (robot != null && component.isShowing()) {
             Point center = getComponentCenter();
-            SwingUtilities.convertPointToScreen( center, component );
-            robot.mouseMove( center.x, center.y );
+            SwingUtilities.convertPointToScreen(center, component);
+            robot.mouseMove(center.x, center.y);
         }
     }
 }

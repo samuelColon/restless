@@ -14,10 +14,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.io.File;
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import javax.swing.*;
 
 public class Game extends JFrame implements Runnable {
     /**
@@ -30,9 +30,9 @@ public class Game extends JFrame implements Runnable {
      * The drawing component
      */
     private GameCanvas gameCanvas;
-    private BufferStrategy bs;
+    private BufferStrategy buffStrategy;
 
-    private final Color backGroundColor = Color.LIGHT_GRAY;
+    private Color backGroundColor = Color.LIGHT_GRAY;
     private FrameRate frameRate;
 
     private Thread gameThread;
@@ -42,28 +42,30 @@ public class Game extends JFrame implements Runnable {
     /**
      * sound files
      */
-    private final String FILE_PATH             = "res/sounds";
+    private final String FILE_PATH = "res/sounds";
     private final String BACKGROUND_MUSIC_FILE = "mainBackGroundMusic.wav";
-    private final String SHOOTING_SOUND_FILE   = "gunShot.wav";
+    private final String SHOOTING_SOUND_FILE = "gunShot.wav";
 
     private Player player;
 
-    /** player coordinates */
+    /**
+     * player coordinates
+     */
     private double playerX = 265;
     private double playerY = 400;
 
     private final double PLAYERS_MOVEMENT_SPEED = .11;
 
-    public final int FACING_LEFT  = 1;
-    public final int FACING_UP    = 2;
+    public final int FACING_LEFT = 1;
+    public final int FACING_UP = 2;
     public final int FACING_RIGHT = 3;
-    public final int FACING_DOWN  = 4;
+    public final int FACING_DOWN = 4;
 
     private ArrayList<BasicEnemy> currentEnemies;
     private ArrayList<Bullet> currentBullets;
 
-    public Game(int gameWidth, int gameHeight) {
-        GAME_WIDTH  = gameWidth;
+    public Game (int gameWidth, int gameHeight) {
+        GAME_WIDTH = gameWidth;
         GAME_HEIGHT = gameHeight;
 
         /** configure JFrame  */
@@ -74,7 +76,7 @@ public class Game extends JFrame implements Runnable {
         setResizable(false);
 
         /** Handle closing of the Game window */
-        addWindowListener( new WindowAdapter() {
+        addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing (WindowEvent e) {
                 onWindowClosing();
@@ -84,7 +86,7 @@ public class Game extends JFrame implements Runnable {
         /** init canvas */
         gameCanvas = new GameCanvas(GAME_WIDTH, GAME_HEIGHT);
         add(gameCanvas.getCanvas());
-        bs = gameCanvas.getBS(2);
+        buffStrategy = gameCanvas.getBS(2);
         pack();
 
         /** init key bindings */
@@ -92,8 +94,8 @@ public class Game extends JFrame implements Runnable {
         addKeyListener(keyHandler);
 
         /** Hide that hideous mouse when we're playing! */
-//        setCursor(getToolkit().createCustomCursor(
-//                new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "null") );
+        //        setCursor(getToolkit().createCustomCursor(
+        //                new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "null") );
 
         /** init player */
         player = new Player(playerX, playerY);
@@ -102,7 +104,7 @@ public class Game extends JFrame implements Runnable {
 
         /** init currentEnemies */
         currentEnemies = new ArrayList<>();
-        currentEnemies.add( new BasicEnemy(250, 250));
+        currentEnemies.add(new BasicEnemy(250, 250));
 
         initSounds();
 
@@ -111,14 +113,14 @@ public class Game extends JFrame implements Runnable {
         gameThread.start();
     }
 
-    private SoundManager SmBackground;
-    private SoundManager  SmGunshot;
+    private SoundManager smBackground;
+    private SoundManager smGunshot;
 
-    private void initSounds() {
+    private void initSounds () {
         /** init background music */
-        SmBackground = new SoundManager( new File(FILE_PATH, BACKGROUND_MUSIC_FILE), true); // true = loop sound
+        smBackground = new SoundManager(new File(FILE_PATH, BACKGROUND_MUSIC_FILE), true); // true = loop sound
         /** init shooting sound */
-        SmGunshot    = new SoundManager( new File(FILE_PATH, SHOOTING_SOUND_FILE), false);
+        smGunshot = new SoundManager(new File(FILE_PATH, SHOOTING_SOUND_FILE), false);
     }
 
     private volatile boolean gameRunning;
@@ -126,26 +128,26 @@ public class Game extends JFrame implements Runnable {
     private Random rand;
 
     @Override
-    public void run() {
+    public void run () {
         gameRunning = true;
-        gamePaused  = false;
-        frameRate   = new FrameRate();
+        gamePaused = false;
+        frameRate = new FrameRate();
         frameRate.initialize();
 
-        long curTime  = System.nanoTime();
+        long curTime = System.nanoTime();
         long lastTime = curTime;
         double nsPerFrame;
 
         rand = new Random();
 
-        SmBackground.play();
+        smBackground.play();
 
-        while( gameRunning ) {
-            if( !gamePaused ) {
+        while (gameRunning) {
+            if (! gamePaused) {
                 if (hasFocus()) {
                     curTime = System.nanoTime();
                     nsPerFrame = curTime - lastTime;
-                    gameLoop( nsPerFrame / 1.0E6 );
+                    gameLoop(nsPerFrame / 1.0E6);
                     lastTime = curTime;
                 } else {
                     requestFocus();
@@ -154,7 +156,7 @@ public class Game extends JFrame implements Runnable {
         }
     }
 
-    private void gameLoop(double delta) {
+    private void gameLoop (double delta) {
         checkForUserInput();
         update(delta);
         renderFrame();
@@ -162,37 +164,41 @@ public class Game extends JFrame implements Runnable {
     }
 
     private boolean playerIsMoving;
-    private void checkForUserInput() {
+
+    private void checkForUserInput () {
         playerIsMoving = false;
         keyHandler.poll();
 
-        if(keyHandler.keyDownOnce(KeyEvent.VK_SPACE)) {
-            if(player.shoot()) {
-                SmGunshot.play();
+        if (keyHandler.keyDownOnce(KeyEvent.VK_SPACE)) {
+            if (player.shoot()) {
+                smGunshot.play();
                 currentBullets.add(new Bullet(playerX, playerY, player.getDirection()));
             }
         }
-        if(keyHandler.keyDown(KeyEvent.VK_LEFT)) {
+        if (keyHandler.keyDown(KeyEvent.VK_LEFT)) {
             playerIsMoving = true;
             player.setDirection(FACING_LEFT);
         }
-        if(keyHandler.keyDown(KeyEvent.VK_UP)) {
+        if (keyHandler.keyDown(KeyEvent.VK_UP)) {
             playerIsMoving = true;
             player.setDirection(FACING_UP);
         }
-        if(keyHandler.keyDown(KeyEvent.VK_RIGHT)) {
+        if (keyHandler.keyDown(KeyEvent.VK_RIGHT)) {
             playerIsMoving = true;
             player.setDirection(FACING_RIGHT);
         }
-        if(keyHandler.keyDown(KeyEvent.VK_DOWN)) {
+        if (keyHandler.keyDown(KeyEvent.VK_DOWN)) {
             playerIsMoving = true;
             player.setDirection(FACING_DOWN);
         }
     }
 
     private volatile int enemyLimit = 1;
-    private void update(double delta) {
-        if (!player.isAlive()) gameOver();
+
+    private void update (double delta) {
+        if (! player.isAlive()) {
+            gameOver();
+        }
         if (playerIsMoving) {
             movePlayer(delta);
             playerX = player.getX();
@@ -200,91 +206,100 @@ public class Game extends JFrame implements Runnable {
         }
 
         ArrayList<Bullet> bullets = new ArrayList<>(currentBullets);
-        for (Bullet b: bullets) {
-            if (b.expired)
+        for (Bullet b : bullets) {
+            if (b.expired) {
                 currentBullets.remove(b);
+            }
 
             b.move(delta);
 
-            if (bulletCollision( b ))
+            if (bulletCollision(b)) {
                 b.expired = true;
+            }
         }
 
-        ArrayList<BasicEnemy> enemies = new ArrayList<>( currentEnemies );
+        ArrayList<BasicEnemy> enemies = new ArrayList<>(currentEnemies);
         if (enemies.size() < enemyLimit) {
             currentEnemies.add(new BasicEnemy(getRandomX(), getRandomY()));
         } else {
-            for ( BasicEnemy e : enemies ) {
-                if ( e.isAlive() ) {
+            for (BasicEnemy e : enemies) {
+                if (e.isAlive()) {
                     e.move(playerX, playerY, delta);
                 } else {
-                    if ( e.hasItem() ) {
-                        itemsOnMap.add( e.getItem() );
-                        currentEnemies.remove( e );
+                    if (e.hasItem()) {
+                        itemsOnMap.add(e.getItem());
+                        currentEnemies.remove(e);
                         enemyLimit++;
                     }
                 }
             }
         }
 
-        ArrayList<Item> items = new ArrayList<>( itemsOnMap );
+        ArrayList<Item> items = new ArrayList<>(itemsOnMap);
         for (Item i : items) {
-            if ((playerX >= i.getX() && playerX <= i.getX() + 5) &&
-                    (playerY <= i.getY() + 5 && playerY >= i.getY()) )
-            {
+            if ((playerX >= i.getX() && playerX <= i.getX() + 5) && (playerY <= i.getY() + 5 && playerY >= i.getY())) {
                 player.addItem(i);
-                itemsOnMap.remove( i );
+                itemsOnMap.remove(i);
             }
         }
     }
 
-    private void movePlayer(double delta) {
+    private void movePlayer (double delta) {
         double distance = delta * PLAYERS_MOVEMENT_SPEED;
 
-        switch(player.getDirection()) {
+        switch (player.getDirection()) {
             case FACING_LEFT:
-                if (playerWithinBounds(playerX -= distance, playerY)) player.setX(playerX -= distance);
+                if (playerWithinBounds(playerX -= distance, playerY)) {
+                    player.setX(playerX -= distance);
+                }
                 break;
             case FACING_UP:
-                if (playerWithinBounds(playerX, playerY -= distance)) player.setY(playerY -= distance);
+                if (playerWithinBounds(playerX, playerY -= distance)) {
+                    player.setY(playerY -= distance);
+                }
                 break;
             case FACING_RIGHT:
-                if (playerWithinBounds(playerX += distance, playerY)) player.setX(playerX += distance);
+                if (playerWithinBounds(playerX += distance, playerY)) {
+                    player.setX(playerX += distance);
+                }
                 break;
             case FACING_DOWN:
-                if (playerWithinBounds(playerX, playerY += distance)) player.setY(playerY += distance);
+                if (playerWithinBounds(playerX, playerY += distance)) {
+                    player.setY(playerY += distance);
+                }
                 break;
         }
     }
 
-    private boolean playerWithinBounds(double x, double y) {
-        return  (x > 0 && y > 0)
-                  &&
-                (x < GAME_WIDTH && y < GAME_HEIGHT);
+    private boolean playerWithinBounds (double x, double y) {
+        return (x > 0 && y > 0) && (x < GAME_WIDTH && y < GAME_HEIGHT);
     }
 
-    private void renderFrame() {
+    private void renderFrame () {
         do {
             do {
                 Graphics g = null;
 
                 try {
-                    g = bs.getDrawGraphics();
+                    g = buffStrategy.getDrawGraphics();
                     render(g);
                 } finally {
                     if (g != null) {
                         g.dispose();
                     }
                 }
-            } while(bs.contentsRestored());
-            bs.show();
-        } while(bs.contentsLost());
+            } while (buffStrategy.contentsRestored());
+            buffStrategy.show();
+        } while (buffStrategy.contentsLost());
     }
 
-    /** drawing is done based on a copy of each array
-     *  to avoid a Concurrent Modification Exception */
+    /**
+     * drawing is done based on a copy of each array
+     * to avoid a Concurrent Modification Exception
+     */
     private ArrayList<Item> itemsOnMap = new ArrayList<>();
-    private void render(Graphics g) {
+
+    private void render (Graphics g) {
         g.setColor(backGroundColor);
         g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT - 1);
 
@@ -294,34 +309,33 @@ public class Game extends JFrame implements Runnable {
 
         player.draw(g);
 
-        ArrayList<BasicEnemy> enemies = new ArrayList<>( currentEnemies );
-        for( BasicEnemy e: enemies ) {
+        ArrayList<BasicEnemy> enemies = new ArrayList<>(currentEnemies);
+        for (BasicEnemy e : enemies) {
             e.draw(g);
         }
 
         ArrayList<Bullet> bullets = new ArrayList<>(currentBullets);
-        for(Bullet b: bullets) {
+        for (Bullet b : bullets) {
             b.draw(g);
         }
 
         ArrayList<Item> items = new ArrayList<>(itemsOnMap);
-        for(Item i: items) {
+        for (Item i : items) {
             i.draw(g);
         }
     }
 
-    private boolean bulletCollision(Bullet b) {
+    private boolean bulletCollision (Bullet b) {
         double bx = b.getX();
         double by = b.getY();
         ArrayList<BasicEnemy> enemies = new ArrayList<>(currentEnemies);
 
-        for(BasicEnemy e: enemies) {
+        for (BasicEnemy e : enemies) {
             double ex = e.getX();
             double ey = e.getY();
-            double d  = e.dimensions;
+            double d = e.dimensions;
 
-            if ( (bx >= ex && bx <= ex + d ) &&
-                    ( by <= ey + d && by >= ey) ) {
+            if ((bx >= ex && bx <= ex + d) && (by <= ey + d && by >= ey)) {
                 e.setHealth(b.bulletStrength);
                 return true;
             }
@@ -333,46 +347,47 @@ public class Game extends JFrame implements Runnable {
     /**
      * 60 fps in milliseconds
      */
-    private double targetFrameRate = 1000/60;
+    private double targetFrameRate = 1000 / 60;
+
     /**
      * if rendering is ahead of schedule sleep thread, else continue
      */
-    private void sleep(double delta) {
-        if (delta < targetFrameRate ) {
+    private void sleep (double delta) {
+        if (delta < targetFrameRate) {
             try {
-                TimeUnit.MILLISECONDS.sleep( (long) (targetFrameRate - delta) );
+                TimeUnit.MILLISECONDS.sleep((long) (targetFrameRate - delta));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
 
-   /**
-    * for when the inventory panel is up and running
-    * */
-    public void openInventoryScreen() {
+    /**
+     * for when the inventory panel is up and running
+     */
+    public void openInventoryScreen () {
     }
 
-    public void closeInventoryScreen() {
+    public void closeInventoryScreen () {
     }
 
-    public void addItem(Item item) {
+    public void addItem (Item item) {
         itemsOnMap.add(item);
     }
 
-    private int getRandomX() {
+    private int getRandomX () {
         return rand.nextInt(GAME_WIDTH);
     }
 
-    private int getRandomY() {
+    private int getRandomY () {
         return rand.nextInt(GAME_HEIGHT);
     }
 
-    private void gameOver() {
+    private void gameOver () {
         gameRunning = false;
     }
 
-    public void onWindowClosing(){
+    public void onWindowClosing () {
         /** clean up resources */
         gameCanvas.destroy();
         gameOver();

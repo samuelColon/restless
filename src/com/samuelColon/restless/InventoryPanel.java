@@ -1,8 +1,8 @@
 package com.samuelColon.restless;
 
-import javax.swing.*;
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.*;
 
 /**
  * this jpanel will show a visual of the current inventory
@@ -12,9 +12,9 @@ import java.awt.Dimension;
 public class InventoryPanel extends JPanel {
 
     public InventoryPanel () {
-        setSize( new Dimension( 300, 400 ) );
-        setBackground( Color.blue );
-        setVisible( false );
+        setSize(new Dimension(300, 400));
+        setBackground(Color.blue);
+        setVisible(false);
         requestFocus();
     }
 }

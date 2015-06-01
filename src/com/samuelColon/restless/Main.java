@@ -13,26 +13,27 @@ public class Main extends JFrame {
      * Current screen dimensions
      */
 
-    private final int GAME_WIDTH  = 600;
+    private final int GAME_WIDTH = 600;
     private final int GAME_HEIGHT = 500;
-
     private final int MENU_WIDTH;
     private final int MENU_HEIGHT;
 
-    /** so I don't have to click new game every single damn time */
+    /**
+     * so I don't have to click new game every single damn time
+     */
     private final boolean DEBUG_MODE = false;
 
-    public Main() {
+    public Main () {
         Window.init();
-        MENU_WIDTH  = (int) (Window.getScreenWidth() / 2);
+        MENU_WIDTH = (int) (Window.getScreenWidth() / 2);
         MENU_HEIGHT = (int) (Window.getScreenHeight() / 2);
     }
 
-    private void createAndShowGui() {
+    private void createAndShowGui () {
         setPreferredSize(new Dimension(MENU_WIDTH, MENU_HEIGHT));
         setTitle("Restless");
         setLayout(new GridLayout(1, 1));
-        setLocation( 0 - MENU_WIDTH / 2, 0 - MENU_HEIGHT / 2 );
+        setLocation(0 - MENU_WIDTH / 2, 0 - MENU_HEIGHT / 2);
         setIgnoreRepaint(true);
 
         if (DEBUG_MODE) {
@@ -43,8 +44,8 @@ public class Main extends JFrame {
         }
 
         pack();
-        setVisible( true );
-//        setResizable( false );
+        setVisible(true);
+        //        setResizable( false );
     }
 
     /**
@@ -60,21 +61,21 @@ public class Main extends JFrame {
     public void swapFrames () {
         new Game(GAME_WIDTH, GAME_HEIGHT);
         getContentPane().removeAll();
-        setFocusable( false );
-        this.setVisible( false );
+        setFocusable(false);
+        this.setVisible(false);
     }
 
-    public static void main ( String[] args ) {
+    public static void main (String[] args) {
         final Main app = new Main();
 
-        app.addWindowListener( new WindowAdapter() {
+        app.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing ( WindowEvent e ) {
+            public void windowClosing (WindowEvent e) {
                 onWindowClosing();
             }
-        } );
+        });
 
-        SwingUtilities.invokeLater( new Runnable() {
+        SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run () {
                 app.createAndShowGui();

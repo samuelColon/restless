@@ -18,9 +18,9 @@ public class FrameRate {
         lastTime = current;
         frameCount++;
 
-        if ( delta > 1000 ) {
+        if (delta > 1000) {
             delta -= 1000;
-            frameRate = String.format( "FPS %s", frameCount );
+            frameRate = String.format("FPS %s", frameCount);
             frameCount = 0;
         }
     }
