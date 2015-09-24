@@ -37,7 +37,7 @@ public class Player implements LivingEntity {
     private double percentage;
 
     /**
-     * shooting
+     * shooting”
      */
     private long timeSinceLastShot = 0;
     private int shotInterval = 380;

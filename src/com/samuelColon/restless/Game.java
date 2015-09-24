@@ -164,8 +164,8 @@ public class Game extends JFrame implements Runnable {
     }
 
     private boolean playerIsMoving;
-
-    private void checkForUserInput () {
+        private void checkForUserInput (
+) {
         playerIsMoving = false;
         keyHandler.poll();
 
