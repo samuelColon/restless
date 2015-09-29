@@ -1,8 +1,0 @@
-xml files
-
-file: playerData - will contain current level on. Stats such as current/max hp, exp. Weapon equiped, inventory.
-  main save/load file.
-
-dir: entities - items, weapon data. 
- sub dir: livingEntities - player, enemies, bosses etc.
-dir: levels - all maps
