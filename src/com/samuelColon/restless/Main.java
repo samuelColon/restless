@@ -45,11 +45,11 @@ public class Main extends JFrame {
 
         pack();
         setVisible(true);
-        //        setResizable( false );
+//        setResizable( false );
     }
 
     /**
-     * clean up resources
+     * clean up resources here
      */
     private static void onWindowClosing () {
         System.exit(0);

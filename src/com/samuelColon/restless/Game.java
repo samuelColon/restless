@@ -94,8 +94,8 @@ public class Game extends JFrame implements Runnable {
         addKeyListener(keyHandler);
 
         /** Hide that hideous mouse when we're playing! */
-        //        setCursor(getToolkit().createCustomCursor(
-        //                new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "null") );
+//        setCursor(getToolkit().createCustomCursor(
+//                new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "null") );
 
         /** init player */
         player = new Player(playerX, playerY);
@@ -152,6 +152,13 @@ public class Game extends JFrame implements Runnable {
                 } else {
                     requestFocus();
                 }
+            } else {
+                keyHandler.poll();
+                if (keyHandler.keyDownOnce(KeyEvent.VK_P)) {
+                    gamePaused = false;
+                    smBackground.play();
+                    lastTime = System.nanoTime();
+                }
             }
         }
     }
@@ -164,8 +171,7 @@ public class Game extends JFrame implements Runnable {
     }
 
     private boolean playerIsMoving;
-        private void checkForUserInput (
-) {
+    private void checkForUserInput () {
         playerIsMoving = false;
         keyHandler.poll();
 
@@ -190,6 +196,10 @@ public class Game extends JFrame implements Runnable {
         if (keyHandler.keyDown(KeyEvent.VK_DOWN)) {
             playerIsMoving = true;
             player.setDirection(FACING_DOWN);
+        }
+        if (keyHandler.keyDownOnce(KeyEvent.VK_P)) {
+            gamePaused = true;
+            smBackground.pauseSound();
         }
     }
 
